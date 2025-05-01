@@ -5,7 +5,7 @@ function ItemCard({image_url, item_name, rating, price, discount}) {
   const image_src = `${image_url}`;
   return (
     <div className='flex flex-col gap-1 lg:scale-110'>
-        <img src={ image_src } alt="Shirt" className='w-[200px] h-[200px] bg-[#f0f0f0] rounded-[25px]' />
+        <img src={ image_src } alt="Shirt" className='min-w-[200px] w-[200px] min-h-[200px] h-[200px] bg-[#f0f0f0] rounded-[25px]' />
         <p className="font-bold">{ item_name }</p>
         <div className='flex flex-row gap-1 items-center'>
             <StarRating rating={ rating } />

@@ -6,6 +6,7 @@ import Category from "./pages/Category";
 import Cart from "./pages/Cart";
 import Navbar from './assets/components/Navbar';
 import SignUpNow from './assets/components/SignUpNow';
+import Footer from './assets/components/Footer';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/category" element={<Category />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }

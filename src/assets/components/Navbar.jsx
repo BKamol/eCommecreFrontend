@@ -15,7 +15,7 @@ function Navbar() {
         </div>
         <div className="flex flex-row gap-4">
             <Link to='category'>
-              <Search size={20} color="#000000" className="md:hidden" />
+              <Search size={20} color="#000000" className="lg:hidden" />
             </Link>
             <Link to="cart">
               <ShoppingCart size={20} color="#000000" />
