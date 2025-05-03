@@ -1,5 +1,5 @@
 import React from 'react'
-import LatestOffers from './LatestOffers'
+import LatestOffers from './home-page-components/LatestOffers'
 import FooterLinks from './FooterLinks'
 
 

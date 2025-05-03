@@ -1,5 +1,4 @@
 import React from 'react'
-import backgroundImage from '../images/TwoPeopleSmall.svg'
 
 function MainBlockImage() {
     return (

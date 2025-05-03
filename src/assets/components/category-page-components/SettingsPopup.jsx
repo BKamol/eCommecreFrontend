@@ -1,0 +1,45 @@
+import React, { useState } from 'react';
+import HorizontalLine from '../HorizontalLine';
+import PriceRangeSlider from './PriceRangeSlider';
+import ColorSelector from './ColorSelector';
+import FiltersLinks from './FiltersLinks';
+import SizeSelector from './SizeSelector';
+
+const SettingsPopup = ({ isOpen, settingsHandler }) => {
+  return (
+    <div>
+      {/* Popup overlay */}
+      {isOpen && (
+        <div className="fixed inset-0 z-50 w-full flex items-center justify-center bg-black/20">
+          {/* Popup content */}
+          <div className="relative w-full h-[100vh] mt-50 bg-white rounded-4xl shadow-xl overflow-auto">
+            {/* Content here */}
+            <div className="px-10 py-6">
+              <div className='flex flex-row justify-between items-center mb-4'>
+                <p className="text-2xl font-bold">Filters</p>
+                {/* Close button */}
+                <button
+                    onClick={settingsHandler}
+                    className="text-gray-500 hover:text-gray-700 cursor-pointer"
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                </button>
+              </div>
+              <HorizontalLine applyPadding={false} mb={4}/>
+              <FiltersLinks />
+              <HorizontalLine applyPadding={false} mb={4}/>
+              <PriceRangeSlider />
+              <ColorSelector />
+              <HorizontalLine applyPadding={false} mb={4}/>
+              <SizeSelector />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default SettingsPopup;

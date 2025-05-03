@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import SocialMediaLinks from './SocialMediaLinks'
-import PaymentMethodsList from './PaymentMethodsList'
+import SocialMediaLinks from './home-page-components/SocialMediaLinks'
+import PaymentMethodsList from './home-page-components/PaymentMethodsList'
 
 function FooterLinks() {
   return (

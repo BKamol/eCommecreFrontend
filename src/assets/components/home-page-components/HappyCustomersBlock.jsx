@@ -1,6 +1,6 @@
 import React from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import ReviewCard from './ReviewCard';
+import ReviewCard from '../ReviewCard';
 
 function HappyCustomersBlock() {
   return (
