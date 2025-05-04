@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import HorizontalLine from '../assets/components/HorizontalLine'
-import Breadcrumb from '../assets/components/category-page-components/Breadcrumb'
+import Breadcrumb from '../assets/components/Breadcrumb'
 import SettingsBlock from '../assets/components/category-page-components/SettingsBlock'
 import ItemsGrid from '../assets/components/category-page-components/ItemsGrid'
 import SettingsPopup from '../assets/components/category-page-components/SettingsPopup'

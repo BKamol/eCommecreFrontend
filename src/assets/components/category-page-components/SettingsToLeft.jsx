@@ -5,6 +5,7 @@ import ColorSelector from './ColorSelector';
 import FiltersLinks from './FiltersLinks';
 import SizeSelector from './SizeSelector';
 import DressStyleLinks from './DressStyleLinks';
+import { SlidersVertical } from 'lucide-react';
 
 function SettingsToLeft() {
   return (
@@ -13,14 +14,7 @@ function SettingsToLeft() {
         <div className="px-10 py-6">
             <div className='flex flex-row justify-between items-center mb-4'>
             <p className="text-2xl font-bold">Filters</p>
-            {/* Close button */}
-            <button
-                className="text-gray-500 hover:text-gray-700 cursor-pointer"
-            >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            </button>
+            <SlidersVertical size={18} className='opacity-60' />
             </div>
             <HorizontalLine applyPadding={false} mb={4}/>
             <FiltersLinks />
