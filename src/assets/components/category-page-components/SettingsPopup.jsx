@@ -4,6 +4,7 @@ import PriceRangeSlider from './PriceRangeSlider';
 import ColorSelector from './ColorSelector';
 import FiltersLinks from './FiltersLinks';
 import SizeSelector from './SizeSelector';
+import DressStyleLinks from './DressStyleLinks';
 
 const SettingsPopup = ({ isOpen, settingsHandler }) => {
   return (
@@ -32,8 +33,12 @@ const SettingsPopup = ({ isOpen, settingsHandler }) => {
               <HorizontalLine applyPadding={false} mb={4}/>
               <PriceRangeSlider />
               <ColorSelector />
-              <HorizontalLine applyPadding={false} mb={4}/>
               <SizeSelector />
+              <DressStyleLinks />
+              <button className="w-full py-2 mt-4 text-center text-white bg-black rounded-[25px] cursor-pointer">
+                Apply Filter
+              </button>
+              <div className='mt-25'></div>
             </div>
           </div>
         </div>

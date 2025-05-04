@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import HorizontalLine from '../HorizontalLine';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const PriceRangeSlider = ({ min = 0, max = 300, onChange }) => {
   const [minValue, setMinValue] = useState(min);
   const [maxValue, setMaxValue] = useState(max);
   const [activeThumb, setActiveThumb] = useState(null);
+  const [visible, setVisible] = useState(true)
   const sliderRef = useRef(null);
 
   // Calculate percentage positions
@@ -54,11 +56,21 @@ const PriceRangeSlider = ({ min = 0, max = 300, onChange }) => {
     }
   }, [minValue, maxValue, onChange]);
 
-  return (
-    <div className="w-full flex flex-col gap-6">
-      <p className="font-bold text-2xl">Price</p>
+  const handleVisibility = () => {
+    setVisible(!visible);
+  }
 
-      <div 
+  return (
+    <div className={`w-full flex flex-col gap-6 ${!visible ? 'mb-6' : ''}`}>
+      <div className="flex flex-row justify-between">
+        <p className="font-bold text-2xl">Price</p>
+        {visible && <button onClick={handleVisibility}><ChevronUp /></button>}
+        {!visible && <button onClick={handleVisibility}><ChevronDown /></button>}
+      </div>
+
+      {visible && 
+      <>
+        <div 
         ref={sliderRef}
         className="relative h-1.5 w-full bg-gray-200 rounded-full"
       >
@@ -89,7 +101,8 @@ const PriceRangeSlider = ({ min = 0, max = 300, onChange }) => {
             <span className="pt-15 text-lg">${maxValue}</span>
         </div>
       </div>
-      <HorizontalLine applyPadding={false} mb={4} mt={10}/>
+      <HorizontalLine applyPadding={false} mb={6} mt={10}/>
+      </>}
     </div>
   );
 };

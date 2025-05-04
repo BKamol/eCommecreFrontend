@@ -6,12 +6,12 @@ const StarRating = ({ rating, maxRating = 5 }) => {
     return (
       <div className="flex">
         {[...Array(fullStars)].map((_, i) => (
-          <span key={`full-${i}`} className="text-yellow-400 text-2xl">★</span>
+          <span key={`full-${i}`} className="text-yellow-400 text-xl">★</span>
         ))}
         {hasHalfStar && (
-          <span className="text-yellow-400 text-2xl relative">
+          <span className="text-yellow-400 text-xl relative">
             <span className="absolute" style={{ width: '50%', overflow: 'hidden' }}>★</span>
-            <span className="text-white text-2xl">★</span>
+            <span className="text-white text-xl">★</span>
           </span>
         )}
       </div>

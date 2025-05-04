@@ -2,7 +2,7 @@ import React from 'react'
 
 const Breadcrumb = ({ items }) => {
     return (
-      <nav className="flex px-10 lg:px-16" aria-label="Breadcrumb">
+      <nav className="flex px-10 lg:px-16 mt-4" aria-label="Breadcrumb">
         <ol className="flex items-center space-x-1">
           {items.map((item, index) => (
             <li key={index} className="flex items-center last:opacity-100">

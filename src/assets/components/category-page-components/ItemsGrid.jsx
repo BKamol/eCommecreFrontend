@@ -6,7 +6,7 @@ import HorizontalLine from '../HorizontalLine';
 const ItemsGrid = ({ items }) => {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 9;
 
   // Calculate pagination
   const totalPages = Math.ceil(items.length / itemsPerPage);
@@ -22,7 +22,7 @@ const ItemsGrid = ({ items }) => {
 
   return (
     <div className="container py-4">
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-8 mb-4 lg:mb-8 px-10 lg:px-16">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-4 lg:mb-8">
         {currentItems.map((item, index) => (
           <ItemCard
             key={index}
@@ -35,7 +35,7 @@ const ItemsGrid = ({ items }) => {
         ))}
       </div>
 
-      <HorizontalLine />
+      <HorizontalLine applyPadding={false} />
 
       <Pagination 
         currentPage={currentPage}

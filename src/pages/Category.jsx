@@ -5,6 +5,7 @@ import Breadcrumb from '../assets/components/category-page-components/Breadcrumb
 import SettingsBlock from '../assets/components/category-page-components/SettingsBlock'
 import ItemsGrid from '../assets/components/category-page-components/ItemsGrid'
 import SettingsPopup from '../assets/components/category-page-components/SettingsPopup'
+import SettingsToLeft from '../assets/components/category-page-components/SettingsToLeft'
 
 const Category = () => {
   const sampleItems = [
@@ -84,9 +85,15 @@ const Category = () => {
       <HorizontalLine />
       <Breadcrumb items={[{label: 'Home', href: '/'}, 
                           {label: 'Category', href:'/category'}]} />
-      <SettingsBlock settingsHandler={handlePopup} />
-      <ItemsGrid items={ sampleItems } />
-      <SettingsPopup isOpen={ settingsOpen } settingsHandler={handlePopup} />
+      <div className='flex flex-row gap-4 px-10 lg:px-16 justify-between'>
+        <SettingsToLeft />
+        <div className='flex flex-col'>
+          <SettingsBlock settingsHandler={handlePopup} />
+          <ItemsGrid items={ sampleItems } />
+          <SettingsPopup isOpen={ settingsOpen } settingsHandler={handlePopup} />
+        </div>
+      </div>
+      
     </div>
   )
 }

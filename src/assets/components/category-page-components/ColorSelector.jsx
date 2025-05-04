@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import HorizontalLine from '../HorizontalLine';
 
 const ColorSelector = ({ onColorSelect }) => {
   const [selectedColors, setSelectedColors] = useState([]);
+  const [visible, setVisible] = useState(true);
   
   const colors = [
     { id: 'red', value: 'red', bg: 'bg-red-500', ring: 'border-red-700' },
@@ -27,10 +30,21 @@ const ColorSelector = ({ onColorSelect }) => {
     });
   };
 
+  const handleVisibility = () => {
+    setVisible(!visible);
+  }
+
   return (
-    <div className="flex flex-col gap-4 mb-4">
-      <p className="text-2xl font-bold">Colors</p>
-      <div className="flex flex-wrap gap-4">
+    <div className={`flex flex-col gap-4 mb-4 ${!visible ? 'mb-6' : ''}`}>
+      <div className='flex flex-row justify-between'>
+        <p className="text-2xl font-bold">Colors</p>
+        {visible && <button onClick={handleVisibility}><ChevronUp /></button>}
+        {!visible && <button onClick={handleVisibility}><ChevronDown /></button>}
+      </div>
+      
+      {visible &&
+        <>
+        <div className={`flex flex-wrap gap-4`}>
         {colors.map((color) => {
           const isSelected = selectedColors.includes(color.value);
           return (
@@ -59,7 +73,10 @@ const ColorSelector = ({ onColorSelect }) => {
             </div>
           );
         })}
-      </div>
+        </div>
+        <HorizontalLine applyPadding={false} mt={2} />
+        </>
+      }
     </div>
   );
 };
