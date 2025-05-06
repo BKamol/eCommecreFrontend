@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import HorizontalLine from '../HorizontalLine';
 
-const ColorSelector = ({ onColorSelect }) => {
+const ColorSelector = ({ onColorSelect, showTitle=true }) => {
   const [selectedColors, setSelectedColors] = useState([]);
   const [visible, setVisible] = useState(true);
   
@@ -36,11 +36,13 @@ const ColorSelector = ({ onColorSelect }) => {
 
   return (
     <div className={`flex flex-col gap-4 mb-4 ${!visible ? 'mb-6' : ''}`}>
+      {showTitle && 
       <div className='flex flex-row justify-between'>
         <p className="text-2xl font-bold">Colors</p>
         {visible && <button onClick={handleVisibility}><ChevronUp /></button>}
         {!visible && <button onClick={handleVisibility}><ChevronDown /></button>}
       </div>
+      }
       
       {visible &&
         <>
@@ -61,7 +63,7 @@ const ColorSelector = ({ onColorSelect }) => {
               <label
                 htmlFor={color.id}
                 className={`${color.bg} w-10 h-10 rounded-full cursor-pointer border-1 ${color.ring} transition-all duration-200 flex items-center justify-center hover:scale-105
-                  ${isSelected ? 'border-2 border-white' : ''}`}
+                  ${isSelected ? 'border-2' : ''}`}
                 title={color.value}
               >
                 {isSelected && (

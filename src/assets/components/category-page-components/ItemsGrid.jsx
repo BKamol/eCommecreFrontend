@@ -21,7 +21,7 @@ const ItemsGrid = ({ items }) => {
   };
 
   return (
-    <div className="container py-4">
+    <div className="container py-4 flex-1">
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8 mb-4 lg:mb-8">
         {currentItems.map((item, index) => (
           <ItemCard

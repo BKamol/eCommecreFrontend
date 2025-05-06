@@ -85,9 +85,9 @@ const Category = () => {
       <HorizontalLine />
       <Breadcrumb items={[{label: 'Home', href: '/'}, 
                           {label: 'Category', href:'/category'}]} />
-      <div className='flex flex-row gap-4 px-10 lg:px-16 justify-between'>
+      <div className='flex flex-row gap-20 px-10 lg:px-16 justify-between'>
         <SettingsToLeft />
-        <div className='flex flex-col'>
+        <div className='flex flex-col flex-1'>
           <SettingsBlock settingsHandler={handlePopup} />
           <ItemsGrid items={ sampleItems } />
           <SettingsPopup isOpen={ settingsOpen } settingsHandler={handlePopup} />

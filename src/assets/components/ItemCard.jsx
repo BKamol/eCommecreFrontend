@@ -1,10 +1,12 @@
 import React from 'react'
 import StarRating from './StarRating'
+import { Link } from 'react-router-dom';
 
 function ItemCard({image_url, item_name, rating, price, discount}) {
   const image_src = `${image_url}`;
   return (
-    <div className='flex flex-col lg:scale-105 mb-2'>
+    <Link to="/productDetail">
+      <div className='flex flex-col xl:scale-105 mb-2 m-4'>
         <img src={ image_src } alt="Shirt" className='min-w-[200px] w-[200px] min-h-[200px] h-[200px] bg-[#f0f0f0] rounded-[25px]' />
         <p className="font-bold">{ item_name }</p>
         <div className='flex flex-row gap-1 items-center'>
@@ -16,7 +18,8 @@ function ItemCard({image_url, item_name, rating, price, discount}) {
             {discount && <p className='font-bold text-xl opacity-40 line-through'>${ price + discount / 100 * price }</p>}
             {discount && <div className='w-[44px] h-[20px] bg-red-200 text-red-500 text-center rounded-[25px] text-[12px]'>-{ discount }%</div>}
         </div>
-    </div>
+      </div>
+    </Link>
   )
 }
 

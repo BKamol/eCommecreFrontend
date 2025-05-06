@@ -3,7 +3,7 @@ import { ChevronUp, ChevronDown } from 'lucide-react';
 import { GiButtonFinger } from 'react-icons/gi';
 import HorizontalLine from '../HorizontalLine';
 
-const SizeSelector = ({ onSizeSelect }) => {
+const SizeSelector = ({ onSizeSelect, showTitle=true }) => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [visible, setVisible] = useState(true);
   
@@ -32,11 +32,15 @@ const SizeSelector = ({ onSizeSelect }) => {
 
   return (
     <div className={`flex flex-col gap-4 mb-4 ${!visible ? 'mb-6' : ''}`}>
-      <div className='flex flex-row justify-between'>
-        <p className="text-2xl font-bold">Size</p>
-        {visible && <button onClick={handleVisibility}><ChevronUp /></button>}
-        {!visible && <button onClick={handleVisibility}><ChevronDown /></button>}
-      </div>
+      {
+        showTitle && 
+        <div className='flex flex-row justify-between'>
+          <p className="text-2xl font-bold">Size</p>
+          {visible && <button onClick={handleVisibility}><ChevronUp /></button>}
+          {!visible && <button onClick={handleVisibility}><ChevronDown /></button>}
+        </div>
+      }
+      
       
       {visible && 
       <>
