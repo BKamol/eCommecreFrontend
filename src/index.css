@@ -32,4 +32,30 @@
         background-color: #d1d5db; /* gray-300 */
         margin: 1rem 0; /* my-4 equivalent */
     }
+
+    @keyframes slide-in-right {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slide-in-left {
+        from {
+            transform: translateX(-100%);
+        }
+        to {
+            transform: translateX(0);
+        }
+    }
+
+    .animate-slide-in-right {
+        animation: slide-in-right 0.5s ease-in-out;
+    }
+
+    .animate-slide-in-left {
+        animation: slide-in-left 0.5s ease-in-out;
+    }
 }
