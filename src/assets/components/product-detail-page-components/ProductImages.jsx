@@ -1,14 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 
-const ProductImages = () => {
+const ProductImages = ({ images }) => {
     const [selectedImage, setSelectedImage] = useState(0);
-    
-    const images = [
-        'src/assets/images/CourageShirt.svg',
-        'src/assets/images/FadedJeans.svg',
-        'src/assets/images/StripedShirt.svg'
-    ];
+    console.log(images);
     
     return (
       <div className="flex flex-1 flex-col lg:flex-row lg:gap-4 lg:w-1/2">
@@ -20,7 +15,7 @@ const ProductImages = () => {
               className={`w-[100px] h-auto border-2 rounded-3xl overflow-hidden transition-all ${selectedImage === index ? 'border-black' : 'border-transparent'}`}
             >
               <img 
-                src={img} 
+                src={img}
                 alt={`Thumbnail ${index + 1}`}
                 className="w-[100px] h-auto object-cover"
               />

@@ -11,7 +11,7 @@ function ReviewCard({rating, author, comment, date, showEllipsis=true}) {
         </div>
         <div className="flex flex-row gap-2">
             <p className='header-text'>{ author }</p>
-            <img src="src/assets/images/check-mark.svg" alt="check-mark" className='scale-80' />
+            <img src="/images/check-mark.svg" alt="check-mark" className='scale-80' />
         </div>
         <p className='opacity-60'>"{ comment }"</p>
         {date && <p className='opacity-60 pt-4 text-sm'>Posted on {date}</p>}

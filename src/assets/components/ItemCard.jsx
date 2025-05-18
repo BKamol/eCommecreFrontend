@@ -2,10 +2,10 @@ import React from 'react'
 import StarRating from './StarRating'
 import { Link } from 'react-router-dom';
 
-function ItemCard({image_url, item_name, rating, price, discount}) {
+function ItemCard({item_id, image_url, item_name, rating, price, discount}) {
   const image_src = `${image_url}`;
   return (
-    <Link to="/productDetail">
+    <Link to={`/productDetail/${item_id}`}>
       <div className='flex flex-col xl:scale-105 mb-2 m-4'>
         <img src={ image_src } alt="Shirt" className='min-w-[200px] w-[200px] min-h-[200px] h-[200px] bg-[#f0f0f0] rounded-[25px]' />
         <p className="font-bold">{ item_name }</p>

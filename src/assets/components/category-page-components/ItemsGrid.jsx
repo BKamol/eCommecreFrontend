@@ -26,7 +26,8 @@ const ItemsGrid = ({ items }) => {
         {currentItems.map((item, index) => (
           <ItemCard
             key={index}
-            image_url={item.image_url}
+            item_id={item.item_id}
+            image_url={item.image_urls[0]}
             item_name={item.item_name}
             rating={item.rating}
             price={item.price}

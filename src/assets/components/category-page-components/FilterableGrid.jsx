@@ -8,7 +8,12 @@ import SettingsToLeft from './SettingsToLeft'
 function FilterableGrid() {
   const sampleItems = [
   {
-    image_url: 'src/assets/images/Jeans.svg',
+    item_id: 1,
+    image_urls: [
+      'src/assets/images/Jeans.svg',
+      'src/assets/images/Jeans.svg',
+      'src/assets/images/Jeans.svg',
+    ],
     item_name: 'Classic Blue Jeans',
     rating: 4.5,
     price: 30,
@@ -17,7 +22,12 @@ function FilterableGrid() {
     sizes: ['Small', 'Medium', 'Large', 'X-Large'],
   },
   {
-    image_url: 'src/assets/images/StripedShirt.svg',
+    item_id: 2,
+    image_urls: [
+      'src/assets/images/StripedShirt.svg',
+      'src/assets/images/StripedShirt.svg',
+      'src/assets/images/StripedShirt.svg',
+    ],
     item_name: 'Striped Casual Shirt',
     rating: 4.2,
     price: 50,
@@ -26,7 +36,12 @@ function FilterableGrid() {
     sizes: ['X-Small', 'Small', 'Medium'],
   },
   {
-    image_url: 'src/assets/images/Jeans.svg',
+    item_id: 3,
+    image_urls: [
+      'src/assets/images/Jeans.svg',
+      'src/assets/images/Jeans.svg',
+      'src/assets/images/Jeans.svg',
+    ],
     item_name: 'Black Skinny Jeans',
     rating: 4.3,
     price: 35,
@@ -35,7 +50,12 @@ function FilterableGrid() {
     sizes: ['XX-Small', 'X-Small', 'Small', 'Medium'],
   },
   {
-    image_url: 'src/assets/images/StripedShirt.svg',
+    item_id: 4,
+    image_urls: [
+      'src/assets/images/StripedShirt.svg',
+      'src/assets/images/StripedShirt.svg',
+      'src/assets/images/StripedShirt.svg',
+    ],
     item_name: 'Pink Summer Shirt',
     rating: 4.7,
     price: 45,
@@ -44,7 +64,12 @@ function FilterableGrid() {
     sizes: ['Medium', 'Large', 'X-Large'],
   },
   {
-    image_url: 'src/assets/images/Jeans.svg',
+    item_id: 5,
+    image_urls: [
+      'src/assets/images/Jeans.svg',
+      'src/assets/images/Jeans.svg',
+      'src/assets/images/Jeans.svg',
+    ],
     item_name: 'Vintage Washed Jeans',
     rating: 4.6,
     price: 40,
@@ -53,7 +78,12 @@ function FilterableGrid() {
     sizes: ['Large', 'X-Large', 'XX-Large'],
   },
   {
-    image_url: 'src/assets/images/StripedShirt.svg',
+    item_id: 6,
+    image_urls: [
+      'src/assets/images/StripedShirt.svg',
+      'src/assets/images/StripedShirt.svg',
+      'src/assets/images/StripedShirt.svg',
+    ],
     item_name: 'Green Casual Shirt',
     rating: 4.4,
     price: 55,
@@ -62,7 +92,12 @@ function FilterableGrid() {
     sizes: ['Small', 'Medium', 'Large'],
   },
   {
-    image_url: 'src/assets/images/Jeans.svg',
+    item_id: 7,
+    image_urls: [
+      'src/assets/images/Jeans.svg',
+      'src/assets/images/Jeans.svg',
+      'src/assets/images/Jeans.svg',
+    ],
     item_name: 'Gray Slim Fit Jeans',
     rating: 4.2,
     price: 38,
@@ -71,7 +106,12 @@ function FilterableGrid() {
     sizes: ['X-Small', 'Small', 'Medium'],
   },
   {
-    image_url: 'src/assets/images/StripedShirt.svg',
+    item_id: 8,
+    image_urls: [
+      'src/assets/images/StripedShirt.svg',
+      'src/assets/images/StripedShirt.svg',
+      'src/assets/images/StripedShirt.svg',
+    ],
     item_name: 'Red Checkered Shirt',
     rating: 4.8,
     price: 60,
@@ -80,7 +120,12 @@ function FilterableGrid() {
     sizes: ['Medium', 'Large', 'X-Large'],
   },
   {
-    image_url: 'src/assets/images/Jeans.svg',
+    item_id: 9,
+    image_urls: [
+      'src/assets/images/Jeans.svg',
+      'src/assets/images/Jeans.svg',
+      'src/assets/images/Jeans.svg',
+    ],
     item_name: 'Dark Indigo Jeans',
     rating: 4.5,
     price: 42,

@@ -7,21 +7,13 @@ import SizeSelector from '../category-page-components/SizeSelector';
 import { Minus, Plus } from 'lucide-react'
 
 const ProductDetails = ({title, rating, price, discount}) => {
-    const [selectedColors, setSelectedColors] = useState();
-    const [selectedSize, setSelectedSize] = useState();
+    const [selectedColors, setSelectedColors] = useState([]);
+    const [selectedSize, setSelectedSize] = useState(null);
     const [quantity, setQuantity] = useState(1);
-
+    
     
     const increaseQuantity = () => setQuantity(prev => prev + 1);
     const decreaseQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
-
-    function handleColorsSelect(_selectedColors) {
-        setSelectedColors(_selectedColors);
-    }
-
-    function handleSizeSelect(_size) {
-        setSelectedSize(_size);
-    }
 
     function handleQuantitySelect(_quantity) {
         setQuantity(_quantity);
@@ -49,12 +41,18 @@ const ProductDetails = ({title, rating, price, discount}) => {
         <HorizontalLine applyPadding={false} mb={4} />
         <div className="flex flex-col gap-2">
             <p className='opacity-60'>Select Colors</p>
-            <ColorSelector showTitle={false} onColorSelect={handleColorsSelect} />
+            <ColorSelector 
+                showTitle={false} 
+                selectedColors={selectedColors} 
+                onColorSelect={setSelectedColors}  />
         </div>
         
         <div className="flex flex-col gap-2">
             <p className='opacity-60'>Choose Size</p>
-            <SizeSelector showTitle={false} onSizeSelect={handleSizeSelect} />
+            <SizeSelector 
+                showTitle={false} 
+                selectedSize={selectedSize}
+                onSizeSelect={setSelectedSize} />
         </div>
         
         <div className="flex flex-row justify-between gap-4">

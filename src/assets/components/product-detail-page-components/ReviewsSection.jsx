@@ -12,9 +12,9 @@ const ReviewsSection = () => {
       { id: 1, author: 'Samantha D.', rating: 4.5, date: '2023-09-14', comment: 'This is the best product I have ever purchased! Fits perfectly and very comfortable.' },
       { id: 2, author: 'Sarah Miller', rating: 4, date: '2023-09-28', comment: 'Great quality fabric. The color is exactly as shown. Would recommend!' },
       { id: 3, author: 'Michael Chen', rating: 3, date: '2023-09-10', comment: 'Good product but the sizing runs a bit small. Consider ordering one size up.' },
-      { id: 1, author: 'Samantha D.', rating: 4.5, date: '2023-09-14', comment: 'This is the best product I have ever purchased! Fits perfectly and very comfortable.' },
-      { id: 2, author: 'Sarah Miller', rating: 4, date: '2023-09-28', comment: 'Great quality fabric. The color is exactly as shown. Would recommend!' },
-      { id: 3, author: 'Michael Chen', rating: 3, date: '2023-09-10', comment: 'Good product but the sizing runs a bit small. Consider ordering one size up.' },
+      { id: 4, author: 'Samantha D.', rating: 4.5, date: '2023-09-14', comment: 'This is the best product I have ever purchased! Fits perfectly and very comfortable.' },
+      { id: 5, author: 'Sarah Miller', rating: 4, date: '2023-09-28', comment: 'Great quality fabric. The color is exactly as shown. Would recommend!' },
+      { id: 6, author: 'Michael Chen', rating: 3, date: '2023-09-10', comment: 'Good product but the sizing runs a bit small. Consider ordering one size up.' },
     ];
     
     const faqs = [
@@ -84,7 +84,11 @@ const ReviewsSection = () => {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {(showAllReviews ? reviews : reviews.slice(0, 4)).map(review => (
-                    <ReviewCard author={review.author} rating={review.rating} comment={review.comment} date={review.date} />
+                    <ReviewCard key={review.id}
+                                author={review.author} 
+                                rating={review.rating} 
+                                comment={review.comment} 
+                                date={review.date} />
                     ))}
                     </div>
                 </div>

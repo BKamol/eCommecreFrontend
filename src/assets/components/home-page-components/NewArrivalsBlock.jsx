@@ -7,16 +7,20 @@ function NewArrivalsBlock() {
     <div className='flex flex-col pt-15 pb-10 px-10 lg:px-16'>
         <p className='header-text text-center text-4xl lg:text-5xl pb-2'>NEW ARRIVALS</p>
         <div className="flex flex-row gap-4 overflow-hidden py-8 justify-between">
-            <ItemCard image_url={'src/assets/images/Shirt.svg'}
-                    item_name={"T-Shirt"} 
-                    rating={3.5} 
-                    price={240} 
-                    discount={20} />
-            <ItemCard image_url={'src/assets/images/Shirt.svg'} 
-                    item_name={"T-Shirt"} 
-                    rating={3.5} 
-                    price={240} 
-                    discount={20} />
+            <ItemCard
+                item_id={1}
+                image_url={'src/assets/images/Shirt.svg'}
+                item_name={"T-Shirt"} 
+                rating={3.5} 
+                price={240} 
+                discount={20} />
+            <ItemCard
+                item_id={2}
+                image_url={'src/assets/images/Shirt.svg'} 
+                item_name={"T-Shirt"} 
+                rating={3.5} 
+                price={240} 
+                discount={20} />
             <ItemCard image_url={'src/assets/images/Shirt.svg'} 
                     item_name={"T-Shirt"} 
                     rating={3.5} 
