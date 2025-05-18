@@ -2,9 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import HorizontalLine from '../HorizontalLine';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
-const PriceRangeSlider = ({ min = 0, max = 300, onChange }) => {
-  const [minValue, setMinValue] = useState(min);
-  const [maxValue, setMaxValue] = useState(max);
+const PriceRangeSlider = ({ min = 0, max = 300, minValue, maxValue, onChange }) => {
   const [activeThumb, setActiveThumb] = useState(null);
   const [visible, setVisible] = useState(true)
   const sliderRef = useRef(null);
@@ -26,10 +24,10 @@ const PriceRangeSlider = ({ min = 0, max = 300, onChange }) => {
 
     if (activeThumb === 'min') {
       const clampedValue = Math.min(newValue, maxValue - 1);
-      setMinValue(clampedValue);
+      onChange({min: clampedValue, max: maxValue});
     } else {
       const clampedValue = Math.max(newValue, minValue + 1);
-      setMaxValue(clampedValue);
+      onChange({min: minValue, max: clampedValue});
     }
   };
 

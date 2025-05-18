@@ -6,19 +6,25 @@ import FiltersLinks from './FiltersLinks';
 import SizeSelector from './SizeSelector';
 import DressStyleLinks from './DressStyleLinks';
 
-const SettingsPopup = ({ isOpen, settingsHandler }) => {
+const SettingsPopup = ({
+  isOpen,
+  settingsHandler,
+  selectedColors,
+  onColorSelect,
+  selectedSize,
+  onSizeSelect,
+  priceRange,
+  onPriceChange,
+  onApplyFilters
+}) => {
   return (
     <div>
-      {/* Popup overlay */}
       {isOpen && (
         <div className="fixed inset-0 z-50 w-full flex items-center justify-center bg-black/20">
-          {/* Popup content */}
           <div className="relative w-full h-[100vh] mt-50 bg-white rounded-4xl shadow-xl overflow-auto">
-            {/* Content here */}
             <div className="px-10 py-6">
               <div className='flex flex-row justify-between items-center mb-4'>
                 <p className="text-2xl font-bold">Filters</p>
-                {/* Close button */}
                 <button
                     onClick={settingsHandler}
                     className="text-gray-500 hover:text-gray-700 cursor-pointer"
@@ -31,11 +37,21 @@ const SettingsPopup = ({ isOpen, settingsHandler }) => {
               <HorizontalLine applyPadding={false} mb={4}/>
               <FiltersLinks />
               <HorizontalLine applyPadding={false} mb={4}/>
-              <PriceRangeSlider />
-              <ColorSelector />
-              <SizeSelector />
+              <PriceRangeSlider 
+                minValue={priceRange.min}
+                maxValue={priceRange.max}
+                onChange={onPriceChange} 
+              />
+              <ColorSelector 
+                selectedColors={selectedColors} 
+                onColorSelect={onColorSelect} 
+              />
+              <SizeSelector 
+                selectedSize={selectedSize} 
+                onSizeSelect={onSizeSelect} 
+              />
               <DressStyleLinks />
-              <button className="w-full py-2 mt-4 text-center text-white bg-black rounded-[25px] cursor-pointer">
+              <button onClick={onApplyFilters} className="w-full py-2 mt-4 text-center text-white bg-black rounded-[25px] cursor-pointer">
                 Apply Filter
               </button>
               <div className='mt-25'></div>

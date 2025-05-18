@@ -7,7 +7,15 @@ import SizeSelector from './SizeSelector';
 import DressStyleLinks from './DressStyleLinks';
 import { SlidersVertical } from 'lucide-react';
 
-function SettingsToLeft() {
+function SettingsToLeft({
+  selectedColors,
+  onColorSelect,
+  selectedSize,
+  onSizeSelect,
+  priceRange,
+  onPriceChange,
+  onApplyFilters
+}) {
   return (
     <div className="relative my-4 hidden md:flex max-w-[280px] xl:max-w-[290px] bg-white rounded-4xl border-1 border-[#f0f0f0]">
         {/* Content here */}
@@ -19,11 +27,21 @@ function SettingsToLeft() {
             <HorizontalLine applyPadding={false} mb={4}/>
             <FiltersLinks />
             <HorizontalLine applyPadding={false} mb={4}/>
-            <PriceRangeSlider />
-            <ColorSelector />
-            <SizeSelector />
+            <PriceRangeSlider 
+                minValue={priceRange.min}
+                maxValue={priceRange.max}
+                onChange={onPriceChange} 
+            />
+            <ColorSelector 
+              selectedColors={selectedColors} 
+              onColorSelect={onColorSelect} 
+            />
+            <SizeSelector 
+              selectedSize={selectedSize} 
+              onSizeSelect={onSizeSelect} 
+            />
             <DressStyleLinks />
-            <button className="w-full py-2 mt-4 text-center text-white bg-black rounded-[25px] cursor-pointer">
+            <button onClick={onApplyFilters} className="w-full py-2 mt-4 text-center text-white bg-black rounded-[25px] cursor-pointer">
             Apply Filter
             </button>
         </div>

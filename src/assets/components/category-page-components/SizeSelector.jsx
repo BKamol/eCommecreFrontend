@@ -3,8 +3,7 @@ import { ChevronUp, ChevronDown } from 'lucide-react';
 import { GiButtonFinger } from 'react-icons/gi';
 import HorizontalLine from '../HorizontalLine';
 
-const SizeSelector = ({ onSizeSelect, showTitle=true }) => {
-  const [selectedSize, setSelectedSize] = useState(null);
+const SizeSelector = ({ selectedSize, onSizeSelect, showTitle=true }) => {
   const [visible, setVisible] = useState(true);
   
   const sizes = [
@@ -20,10 +19,8 @@ const SizeSelector = ({ onSizeSelect, showTitle=true }) => {
   ];
 
   const handleSizeSelect = (size) => {
-    setSelectedSize(size);
-    if (onSizeSelect) {
-      onSizeSelect(size);
-    }
+    const newSize = selectedSize === size ? null : size;
+    onSizeSelect(newSize);
   };
 
   const handleVisibility = () => {
@@ -48,7 +45,7 @@ const SizeSelector = ({ onSizeSelect, showTitle=true }) => {
         {sizes.map((size) => (
           <div key={size} className="flex items-center">
             <input
-              type="radio"
+              type="checkbox"
               id={size}
               name="size-selection"
               value={size}

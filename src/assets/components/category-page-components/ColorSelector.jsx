@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import HorizontalLine from '../HorizontalLine';
 
-const ColorSelector = ({ onColorSelect, showTitle=true }) => {
-  const [selectedColors, setSelectedColors] = useState([]);
+const ColorSelector = ({ selectedColors, onColorSelect, showTitle=true }) => {
   const [visible, setVisible] = useState(true);
   
   const colors = [
@@ -18,16 +17,10 @@ const ColorSelector = ({ onColorSelect, showTitle=true }) => {
   ];
 
   const handleColorSelect = (colorValue) => {
-    setSelectedColors(prev => {
-      const newSelection = prev.includes(colorValue)
-        ? prev.filter(c => c !== colorValue) // Remove if already selected
-        : [...prev, colorValue]; // Add if not selected
-      
-      if (onColorSelect) {
-        onColorSelect(newSelection); // Pass array of selected colors
-      }
-      return newSelection;
-    });
+    const newColors = selectedColors.includes(colorValue)
+      ? selectedColors.filter(c => c !== colorValue)
+      : [...selectedColors, colorValue];
+    onColorSelect(newColors);
   };
 
   const handleVisibility = () => {
