@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import HorizontalLine from '../HorizontalLine';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
-const PriceRangeSlider = ({ min = 0, max = 300, minValue, maxValue, onChange }) => {
+const PriceRangeSlider = ({ min = 0, max = 900, minValue, maxValue, onChange }) => {
   const [activeThumb, setActiveThumb] = useState(null);
   const [visible, setVisible] = useState(true)
   const sliderRef = useRef(null);
