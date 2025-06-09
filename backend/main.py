@@ -4,9 +4,10 @@ from . import models
 from .database import create_db_and_tables, SessionDep
 from sqlmodel import select, join
 from sqlalchemy.orm import selectinload
-
+from .routes import auth
 
 app = FastAPI()
+app.include_router(auth.router)
 
 
 @app.on_event("startup")
@@ -19,6 +20,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
