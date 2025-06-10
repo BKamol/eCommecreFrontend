@@ -4,10 +4,11 @@ from . import models
 from .database import create_db_and_tables, SessionDep
 from sqlmodel import select, join
 from sqlalchemy.orm import selectinload
-from .routes import auth
+from .routes import auth, details
 
 app = FastAPI()
 app.include_router(auth.router)
+app.include_router(details.router)
 
 
 @app.on_event("startup")
