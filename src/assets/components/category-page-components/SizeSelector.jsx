@@ -3,10 +3,10 @@ import { ChevronUp, ChevronDown } from 'lucide-react';
 import { GiButtonFinger } from 'react-icons/gi';
 import HorizontalLine from '../HorizontalLine';
 
-const SizeSelector = ({ selectedSize, onSizeSelect, showTitle=true }) => {
+const SizeSelector = ({ selectedSize, onSizeSelect, showTitle=true, available=null }) => {
   const [visible, setVisible] = useState(true);
   
-  const sizes = [
+  const sizes = available ? available : [
     'XX-Small',
     'X-Small',
     'Small',

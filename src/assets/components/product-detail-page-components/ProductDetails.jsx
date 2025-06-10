@@ -6,7 +6,7 @@ import HorizontalLine from '../HorizontalLine';
 import SizeSelector from '../category-page-components/SizeSelector';
 import { Minus, Plus } from 'lucide-react'
 
-const ProductDetails = ({title, rating, price, discount}) => {
+const ProductDetails = ({title, rating, price, discount, description, colors, sizes}) => {
     const [selectedColors, setSelectedColors] = useState([]);
     const [selectedSize, setSelectedSize] = useState(null);
     const [quantity, setQuantity] = useState(1);
@@ -35,7 +35,7 @@ const ProductDetails = ({title, rating, price, discount}) => {
         </div>
         
         <div className="my-4">
-          <p className="text-black opacity-60 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p className="text-black opacity-60 mb-4">{ description }</p>
         </div>
         
         <HorizontalLine applyPadding={false} mb={4} />
@@ -44,7 +44,8 @@ const ProductDetails = ({title, rating, price, discount}) => {
             <ColorSelector 
                 showTitle={false} 
                 selectedColors={selectedColors} 
-                onColorSelect={setSelectedColors}  />
+                onColorSelect={setSelectedColors}
+                available={colors.map(color => color.name)} />
         </div>
         
         <div className="flex flex-col gap-2">
@@ -52,7 +53,8 @@ const ProductDetails = ({title, rating, price, discount}) => {
             <SizeSelector 
                 showTitle={false} 
                 selectedSize={selectedSize}
-                onSizeSelect={setSelectedSize} />
+                onSizeSelect={setSelectedSize}
+                available={sizes.map(size => size.name)} />
         </div>
         
         <div className="flex flex-row justify-between gap-4">

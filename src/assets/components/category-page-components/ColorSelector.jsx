@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import HorizontalLine from '../HorizontalLine';
 
-const ColorSelector = ({ selectedColors, onColorSelect, showTitle=true }) => {
+const ColorSelector = ({ selectedColors, onColorSelect, showTitle=true, available=null }) => {
   const [visible, setVisible] = useState(true);
   
-  const colors = [
+  let colors = [
     { id: 'red', value: 'red', bg: 'bg-red-500', ring: 'border-red-700' },
     { id: 'blue', value: 'blue', bg: 'bg-blue-500', ring: 'border-blue-700' },
     { id: 'green', value: 'green', bg: 'bg-green-500', ring: 'border-green-700' },
@@ -15,6 +15,11 @@ const ColorSelector = ({ selectedColors, onColorSelect, showTitle=true }) => {
     { id: 'indigo', value: 'indigo', bg: 'bg-indigo-500', ring: 'border-indigo-700' },
     { id: 'gray', value: 'gray', bg: 'bg-gray-500', ring: 'border-gray-700' },
   ];
+
+  if (available) {
+    colors = colors.filter((item) => available.includes(item.value));
+  }
+  console.log(colors.length);
 
   const handleColorSelect = (colorValue) => {
     const newColors = selectedColors.includes(colorValue)

@@ -44,6 +44,13 @@ def get_full_product_info(product_id: int, session: SessionDep):
         raise HTTPException(status_code=404, detail="Product not found")
     
     return {
+        "name": product.name,
+        "rating": product.rating,
+        "price": product.price,
+        "discount": product.discount,
+        "colors": product.colors,
+        "sizes": product.sizes,
+        "images": product.images,
         "details": product.details,
         "faqs": product.faqs,
         "reviews": product.reviews,

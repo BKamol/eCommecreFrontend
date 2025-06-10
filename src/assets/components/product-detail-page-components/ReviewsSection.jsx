@@ -4,20 +4,20 @@ import { ChevronDown, SlidersVertical } from 'lucide-react';
 import ReviewCard from '../ReviewCard';
 import HorizontalLine from '../HorizontalLine';
 
-const ReviewsSection = () => {
+const ReviewsSection = ({_description, _reviews, _faqs}) => {
     const [activeTab, setActiveTab] = useState('reviews');
     const [showAllReviews, setShowAllReviews] = useState(false);
     
-    const reviews = [
-      { id: 1, author: 'Samantha D.', rating: 4.5, date: '2023-09-14', comment: 'This is the best product I have ever purchased! Fits perfectly and very comfortable.' },
-      { id: 2, author: 'Sarah Miller', rating: 4, date: '2023-09-28', comment: 'Great quality fabric. The color is exactly as shown. Would recommend!' },
-      { id: 3, author: 'Michael Chen', rating: 3, date: '2023-09-10', comment: 'Good product but the sizing runs a bit small. Consider ordering one size up.' },
-      { id: 4, author: 'Samantha D.', rating: 4.5, date: '2023-09-14', comment: 'This is the best product I have ever purchased! Fits perfectly and very comfortable.' },
-      { id: 5, author: 'Sarah Miller', rating: 4, date: '2023-09-28', comment: 'Great quality fabric. The color is exactly as shown. Would recommend!' },
-      { id: 6, author: 'Michael Chen', rating: 3, date: '2023-09-10', comment: 'Good product but the sizing runs a bit small. Consider ordering one size up.' },
+    const reviews = _reviews ? _reviews : [
+      { id: 1, author_username: 'Samantha D.', rating: 4.5, date: '2023-09-14', comment: 'This is the best product I have ever purchased! Fits perfectly and very comfortable.' },
+      { id: 2, author_username: 'Sarah Miller', rating: 4, date: '2023-09-28', comment: 'Great quality fabric. The color is exactly as shown. Would recommend!' },
+      { id: 3, author_username: 'Michael Chen', rating: 3, date: '2023-09-10', comment: 'Good product but the sizing runs a bit small. Consider ordering one size up.' },
+      { id: 4, author_username: 'Samantha D.', rating: 4.5, date: '2023-09-14', comment: 'This is the best product I have ever purchased! Fits perfectly and very comfortable.' },
+      { id: 5, author_username: 'Sarah Miller', rating: 4, date: '2023-09-28', comment: 'Great quality fabric. The color is exactly as shown. Would recommend!' },
+      { id: 6, author_username: 'Michael Chen', rating: 3, date: '2023-09-10', comment: 'Good product but the sizing runs a bit small. Consider ordering one size up.' },
     ];
-    
-    const faqs = [
+  
+    const faqs = _faqs ? _faqs : [
       { question: 'What materials are used in this product?', answer: 'Our product is made from 100% organic cotton for maximum comfort and durability.' },
       { question: 'How should I care for this item?', answer: 'Machine wash cold with similar colors. Tumble dry low or hang to dry.' },
     ];
@@ -49,7 +49,7 @@ const ReviewsSection = () => {
           {activeTab === 'details' && (
             <div>
               <p className="text-black opacity-60 mb-4">
-                Our premium comfort t-shirt is designed for all-day wear. Made from high-quality materials that are both durable and soft to the touch.
+                {_description ? _description : "There is no details for this product"}
               </p>
               <ul className="list-disc pl-5 space-y-2 text-black opacity-60">
                 <li>100% organic cotton</li>
@@ -85,14 +85,13 @@ const ReviewsSection = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {(showAllReviews ? reviews : reviews.slice(0, 4)).map(review => (
                     <ReviewCard key={review.id}
-                                author={review.author} 
+                                author={review.author_username} 
                                 rating={review.rating} 
                                 comment={review.comment} 
-                                date={review.date} />
+                                date={review.date.split('T')[0]} />
                     ))}
                     </div>
                 </div>
-              
               
                 {reviews.length > 4 && (
                     <div className="flex justify-center">

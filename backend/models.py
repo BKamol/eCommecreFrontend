@@ -2,7 +2,7 @@ from typing import List, Optional
 from pydantic import BaseModel, validator
 from sqlmodel import SQLModel, Field, Relationship
 from passlib.context import CryptContext
-from datetime import datetime
+from datetime import datetime, date
 
 
 class Product(SQLModel, table=True):
