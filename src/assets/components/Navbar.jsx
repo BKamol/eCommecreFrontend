@@ -20,7 +20,7 @@ function Navbar() {
             <Link to="cart">
               <ShoppingCart size={20} color="#000000" />
             </Link>
-            <Link to="/">
+            <Link to="/profile">
               <CircleUserRound size={20} color="#000000" />
             </Link>
         </div>
