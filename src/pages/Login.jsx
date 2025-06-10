@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
+import HorizontalLine from '../assets/components/HorizontalLine'
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -37,7 +38,9 @@ const Login = () => {
   };
 
   return (
-    <div className='w-full px-10 lg:px-16 flex flex-col items-center gap-4 justify-between my-20'>
+    <>
+     <HorizontalLine />
+     <div className='w-full px-10 lg:px-16 flex flex-col items-center gap-4 justify-between my-20'>
       <h2 className='header-text text-2xl'>Login</h2>
       <form onSubmit={handleSubmit} className='w-full max-w-[350px]'>
         <div style={{ marginBottom: '1rem' }}>
@@ -104,6 +107,7 @@ const Login = () => {
       </form>
       {message && <p style={{ marginTop: '1rem' }}>{message}</p>}
     </div>
+    </>
   );
 };
 

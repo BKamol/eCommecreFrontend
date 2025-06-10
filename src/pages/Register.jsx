@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import HorizontalLine from '../assets/components/HorizontalLine'
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -35,7 +36,9 @@ const Register = () => {
   };
 
   return (
-    <div className='w-full px-10 lg:px-16 flex flex-col items-center gap-4 justify-between my-20'>
+    <>
+      <HorizontalLine />
+      <div className='w-full px-10 lg:px-16 flex flex-col items-center gap-4 justify-between my-20'>
       <h2 className='header-text text-2xl'>Create account</h2>
       <form onSubmit={handleSubmit} className='w-full max-w-[350px]'>
         <div style={{ marginBottom: '1rem' }}>
@@ -90,6 +93,7 @@ const Register = () => {
       </form>
       {message && <p style={{ marginTop: '1rem' }}>{message}</p>}
     </div>
+    </>
   );
 };
 

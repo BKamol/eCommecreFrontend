@@ -59,9 +59,9 @@ function Profile() {
                     <p className="header-text text-black text-2xl lg:text-5xl">
                         {user} {/* Display actual username */}
                     </p>
-                    <p className="header-text text-black text-2xl lg:text-5xl">
-                        balance: {/* Display actual balance if available */}
-                    </p>
+                    {/* <p className="header-text text-black text-2xl lg:text-5xl">
+                        balance:
+                    </p> */}
                     <button onClick={handleLogout} className="w-full max-w-[200px] bg-black text-white text-center rounded-[25px] py-3 cursor-pointer sm:w-50">
                     Log out
                     </button>
