@@ -57,6 +57,28 @@ def get_full_product_info(product_id: int, session: SessionDep):
     }
 
 
+@router.get("/productsfull/", response_model=List[dict])
+def get_full_products_info(session: SessionDep):
+    products = session.exec(select(Product)).all()
+    
+    result = []
+    for product in products:
+        result.append({
+            "id": product.id,
+            "name": product.name,
+            "rating": product.rating,
+            "price": product.price,
+            "discount": product.discount,
+            "colors": product.colors,
+            "sizes": product.sizes,
+            "images": product.images,
+            "details": product.details,
+            "faqs": product.faqs,
+            "reviews": product.reviews,
+        })
+    return result
+
+
 @router.post(
     "/{product_id}/details",
     response_model=ProductDetail,
@@ -120,7 +142,7 @@ def add_product_faq(
 )
 def add_product_review(
     product_id: int,
-    review_data: ReviewCreate,  # You'll need to create this Pydantic model
+    review_data: ReviewCreate,
     session: SessionDep
 ):
     product = session.get(Product, product_id)
@@ -145,5 +167,42 @@ def add_product_review(
     session.add(review)
     session.commit()
     session.refresh(review)
+    
+    return review
+
+
+@router.post(
+    "/{product_id}/many_reviews",
+    response_model=Review,
+    status_code=status.HTTP_201_CREATED
+)
+def add_product_reviews(
+    product_id: int,
+    reviews_data: List[ReviewCreate],
+    session: SessionDep
+):
+    product = session.get(Product, product_id)
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    
+    # Validate rating
+    for review_data in reviews_data:
+        if not 0 <= review_data.rating <= 5:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Rating must be between 0 and 5"
+            )
+        
+        review = Review(
+            product_id=product_id,
+            rating=review_data.rating,
+            author_username=review_data.author_username,
+            comment=review_data.comment,
+            date=datetime.utcnow()
+        )
+        
+        session.add(review)
+        session.commit()
+        session.refresh(review)
     
     return review

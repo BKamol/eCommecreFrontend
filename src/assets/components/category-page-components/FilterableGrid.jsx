@@ -3,13 +3,21 @@ import SettingsBlock from './SettingsBlock'
 import ItemsGrid from './ItemsGrid'
 import SettingsPopup from './SettingsPopup'
 import SettingsToLeft from './SettingsToLeft'
-import axios from 'axios'
+import { fetchProducts } from './utilities';
 
 
 function FilterableGrid() {
   const [products, setProducts] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    axios.get('http://localhost:8000/product/').then(res => setProducts(res.data));
+    const loadData = async () => {
+      setLoading(true);
+      const data = await fetchProducts();
+      if (data) setProducts(data);
+      setLoading(false);
+    };
+    loadData();
   }, []);
 
   const sampleItems = [
@@ -87,8 +95,6 @@ function FilterableGrid() {
         );
       });
   }
-
-  console.log("Filterd items: ", filteredItems)
 
   return (
     <div className='flex flex-row gap-20 px-10 lg:px-16 justify-between'>

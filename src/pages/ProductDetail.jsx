@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import HorizontalLine from '../assets/components/HorizontalLine'
 import Breadcrumb from '../assets/components/Breadcrumb'
 import ProductImages from '../assets/components/product-detail-page-components/ProductImages'
 import ProductDetails from '../assets/components/product-detail-page-components/ProductDetails'
 import ReviewsSection from '../assets/components/product-detail-page-components/ReviewsSection'
+import { fetchProducts } from '../assets/components/category-page-components/utilities';
 
 const ProductDetail = () => {
-  const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+      const loadData = async () => {
+        setLoading(true);
+        const data = await fetchProducts();
+        if (data) setProducts(data);
+        setLoading(false);
+      };
+      loadData();
+    }, []);
+
     const sampleItems = [
     {
       name: 'Data loading error',
@@ -84,14 +96,10 @@ const ProductDetail = () => {
   let item = sampleItems[0];
   const {productId} = useParams();
   
-  useEffect(() => {
-      axios.get(`http://localhost:8000/products/${productId}/full`).then(res => setProduct(res.data));
-    }, []);
-
-  console.log(product);
-  if (product)
-    item = product;
-  
+  if (products) {
+    item = products.filter(product => product.id == productId)[0];
+  }
+  console.log(item);
 
   return (
     <div>
@@ -111,9 +119,9 @@ const ProductDetail = () => {
             sizes={item.sizes} />
         </div>
         <ReviewsSection
-          _description={item.details.length > 0 ? item.details[0].characteristics : 'Nothing.'}
+          description={item.details.length > 0 ? item.details[0].characteristics : 'Nothing.'}
           _reviews={item.reviews}
-          _faqs={item.faqs}
+          faqs={item.faqs}
           />
       </div>
     </div>

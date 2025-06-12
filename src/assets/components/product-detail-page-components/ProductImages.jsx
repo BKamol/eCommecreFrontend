@@ -3,7 +3,6 @@ import { useState } from 'react';
 
 const ProductImages = ({ images }) => {
     const [selectedImage, setSelectedImage] = useState(0);
-    console.log(images);
     
     return (
       <div className="flex flex-1 flex-col lg:flex-row lg:gap-4 lg:w-1/2">

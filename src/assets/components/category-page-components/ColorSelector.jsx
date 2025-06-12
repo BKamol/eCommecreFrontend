@@ -19,7 +19,6 @@ const ColorSelector = ({ selectedColors, onColorSelect, showTitle=true, availabl
   if (available) {
     colors = colors.filter((item) => available.includes(item.value));
   }
-  console.log(colors.length);
 
   const handleColorSelect = (colorValue) => {
     const newColors = selectedColors.includes(colorValue)

@@ -1,26 +1,26 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDown, SlidersVertical } from 'lucide-react';
 import ReviewCard from '../ReviewCard';
 import HorizontalLine from '../HorizontalLine';
+import ReviewModal from './ReviewModal';
+import { fetchProducts } from '../category-page-components/utilities';
 
-const ReviewsSection = ({_description, _reviews, _faqs}) => {
+const ReviewsSection = ({description, _reviews, faqs}) => {
+    const [showReviewModal, setShowReviewModal] = useState(false);
+    const [reviews, setReviews] = useState(_reviews);
     const [activeTab, setActiveTab] = useState('reviews');
     const [showAllReviews, setShowAllReviews] = useState(false);
-    
-    const reviews = _reviews ? _reviews : [
-      { id: 1, author_username: 'Samantha D.', rating: 4.5, date: '2023-09-14', comment: 'This is the best product I have ever purchased! Fits perfectly and very comfortable.' },
-      { id: 2, author_username: 'Sarah Miller', rating: 4, date: '2023-09-28', comment: 'Great quality fabric. The color is exactly as shown. Would recommend!' },
-      { id: 3, author_username: 'Michael Chen', rating: 3, date: '2023-09-10', comment: 'Good product but the sizing runs a bit small. Consider ordering one size up.' },
-      { id: 4, author_username: 'Samantha D.', rating: 4.5, date: '2023-09-14', comment: 'This is the best product I have ever purchased! Fits perfectly and very comfortable.' },
-      { id: 5, author_username: 'Sarah Miller', rating: 4, date: '2023-09-28', comment: 'Great quality fabric. The color is exactly as shown. Would recommend!' },
-      { id: 6, author_username: 'Michael Chen', rating: 3, date: '2023-09-10', comment: 'Good product but the sizing runs a bit small. Consider ordering one size up.' },
-    ];
-  
-    const faqs = _faqs ? _faqs : [
-      { question: 'What materials are used in this product?', answer: 'Our product is made from 100% organic cotton for maximum comfort and durability.' },
-      { question: 'How should I care for this item?', answer: 'Machine wash cold with similar colors. Tumble dry low or hang to dry.' },
-    ];
+
+    useEffect(() => {
+      setReviews(_reviews);
+    }, [_reviews, reviews]);
+
+    const handleReviewSubmit = (newReview) => {
+      setReviews([...reviews, newReview]);
+    };
+
+    console.log(reviews);
     
     return (
       <div className="mt-10">
@@ -49,7 +49,7 @@ const ReviewsSection = ({_description, _reviews, _faqs}) => {
           {activeTab === 'details' && (
             <div>
               <p className="text-black opacity-60 mb-4">
-                {_description ? _description : "There is no details for this product"}
+                {description ? description : "There is no details for this product"}
               </p>
               <ul className="list-disc pl-5 space-y-2 text-black opacity-60">
                 <li>100% organic cotton</li>
@@ -66,7 +66,7 @@ const ReviewsSection = ({_description, _reviews, _faqs}) => {
                 <div className='flex flex-col justify-between gap-4 mb-8'>
                 
                     <div className="flex flex-row items-center justify-between gap-4">
-                        <p className='font-bold text-2xl flex-1'>All Reviews <span className='font-normal text-lg opacity-60'>({reviews.length})</span></p>
+                        <p className='font-bold text-2xl flex-1'>All Reviews <span className='font-normal text-lg opacity-60'>({reviews ? reviews.length : 0})</span></p>
                         <button className="flex items-center justify-center bg-[#f0f0f0] rounded-full w-8 h-8 cursor-pointer">
                             <SlidersVertical size={18} />
                         </button>
@@ -76,9 +76,16 @@ const ReviewsSection = ({_description, _reviews, _faqs}) => {
                         <button className="hidden lg:flex flex-row gap-1 items-center justify-center text-sm min-w-[100px] bg-[#f0f0f0] text-black font-semibold py-3 rounded-[25px] transition-colors cursor-pointer">
                             Latest <span><ChevronDown size={18} /></span>
                         </button>
-                        <button className="text-sm min-w-[120px] bg-black text-white py-3 rounded-[25px] transition-colors cursor-pointer">
+                        <button onClick={() => setShowReviewModal(true)}
+                                className="text-sm min-w-[120px] bg-black text-white py-3 rounded-[25px] transition-colors cursor-pointer">
                             Write a Review
                         </button>
+                        {showReviewModal && (
+                          <ReviewModal
+                            onClose={() => setShowReviewModal(false)}
+                            onReviewSubmit={handleReviewSubmit}
+                          />
+                        )}
                     </div>
 
 
