@@ -19,8 +19,6 @@ const ReviewsSection = ({description, _reviews, faqs}) => {
     const handleReviewSubmit = (newReview) => {
       setReviews([...reviews, newReview]);
     };
-
-    console.log(reviews);
     
     return (
       <div className="mt-10">

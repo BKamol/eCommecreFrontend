@@ -6,6 +6,7 @@ import ProductImages from '../assets/components/product-detail-page-components/P
 import ProductDetails from '../assets/components/product-detail-page-components/ProductDetails'
 import ReviewsSection from '../assets/components/product-detail-page-components/ReviewsSection'
 import { fetchProducts } from '../assets/components/category-page-components/utilities';
+import { useCart } from '../assets/components/cart-page-components/UseCart';
 
 const ProductDetail = () => {
   const [products, setProducts] = useState(null);
@@ -116,7 +117,8 @@ const ProductDetail = () => {
             discount={item.discount}
             description={item.details ? item.details[0].details : 'Nothing.'}
             colors={item.colors}
-            sizes={item.sizes} />
+            sizes={item.sizes}
+            image={item.images ? item.images[0].url : ""} />
         </div>
         <ReviewsSection
           description={item.details.length > 0 ? item.details[0].characteristics : 'Nothing.'}

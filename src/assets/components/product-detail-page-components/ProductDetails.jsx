@@ -5,18 +5,39 @@ import ColorSelector from '../category-page-components/ColorSelector';
 import HorizontalLine from '../HorizontalLine';
 import SizeSelector from '../category-page-components/SizeSelector';
 import { Minus, Plus } from 'lucide-react'
+import { useCart } from '../cart-page-components/CartContext'
+import { useParams } from 'react-router-dom';
 
-const ProductDetails = ({title, rating, price, discount, description, colors, sizes}) => {
+const ProductDetails = ({title, rating, price, discount, description, colors, sizes, image}) => {
     const [selectedColors, setSelectedColors] = useState([]);
     const [selectedSize, setSelectedSize] = useState(null);
     const [quantity, setQuantity] = useState(1);
-    
+    const { cart, addToCart, removeFromCart, updateQuantity } = useCart();
     
     const increaseQuantity = () => setQuantity(prev => prev + 1);
     const decreaseQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
 
+    const {productId} = useParams();
+
     function handleQuantitySelect(_quantity) {
         setQuantity(_quantity);
+    }
+
+    function addToCartUtil() {
+        let item = {
+            id: productId,
+            title: title,
+            rating: rating,
+            price: price,
+            discount: discount,
+            description: description,
+            colors: selectedColors,
+            sizes: selectedSize,
+            image: image,
+            quantity: quantity
+        }
+        addToCart(item, quantity);
+        return item;
     }
     
     return (
@@ -45,7 +66,8 @@ const ProductDetails = ({title, rating, price, discount, description, colors, si
                 showTitle={false} 
                 selectedColors={selectedColors} 
                 onColorSelect={setSelectedColors}
-                available={colors.map(color => color.name)} />
+                available={colors.map(color => color.name)} 
+                onlyOne={true} />
         </div>
         
         <div className="flex flex-col gap-2">
@@ -73,7 +95,7 @@ const ProductDetails = ({title, rating, price, discount, description, colors, si
                     <Plus size={16} />
                 </button>
             </div>
-            <button className="w-full bg-black text-white py-3 rounded-[25px] transition-colors cursor-pointer">
+            <button onClick={addToCartUtil} className="w-full bg-black text-white py-3 rounded-[25px] transition-colors cursor-pointer">
                 Add to Cart
             </button>
         </div>

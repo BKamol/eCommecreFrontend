@@ -54,3 +54,20 @@ export const clearCache = (key) => {
     return false;
   }
 };
+
+
+const CART_KEY = 'user_cart';
+
+export const getCart = () => {
+  try {
+    const cart = localStorage.getItem(CART_KEY);
+    return cart ? JSON.parse(cart) : [];
+  } catch (error) {
+    console.error("Failed to read cart:", error);
+    return [];
+  }
+};
+
+export const saveCart = (cartItems) => {
+  localStorage.setItem(CART_KEY, JSON.stringify(cartItems));
+};

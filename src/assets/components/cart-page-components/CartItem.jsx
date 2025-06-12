@@ -25,10 +25,10 @@ const CartItem = ({ item, onIncrease, onDecrease, onRemove }) => {
                     <Trash2 color="#ff0000" />
                 </button>
             </div>
-            <p className="text-sm">Size: {item.size}</p>
-            <p className="text-sm">Color: {item.color}</p>
+            <p className="text-sm">Size: {item.sizes}</p>
+            <p className="text-sm">Color: {item.colors}</p>
             <div className="flex flex-row items-center justify-between">
-              <p className="header-text text-xl">${(item.price * item.amount).toFixed(0)}</p>
+              <p className="header-text text-xl">${(item.price * item.quantity).toFixed(0)}</p>
               <div className="flex flex-row justify-between items-center min-w-[110px] max-w-[150px] gap-4 bg-[#f0f0f0] rounded-[25px] px-4 py-1">
                 <button 
                     onClick={() => onDecrease(item.id)}
@@ -36,7 +36,7 @@ const CartItem = ({ item, onIncrease, onDecrease, onRemove }) => {
                 >
                     <Minus size={16} />
                 </button>
-                <p className="">{item.amount}</p>
+                <p className="">{item.quantity}</p>
                 <button 
                     onClick={() => onIncrease(item.id)}
                     className="font-bold text-lg cursor-pointer"

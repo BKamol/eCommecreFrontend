@@ -1,66 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CartItem from './CartItem';
 import OrderSummary from './OrderSummary';
+import { useCart } from './CartContext';
+
+// {
+//   id: 3,
+//   title: "T-shirt",
+//   image: "src/assets/images/T-shirt.svg",
+//   size: "10",
+//   color: "Black",
+//   price: 80,
+//   discount: 0,
+//   amount: 1
+// }
 
 const ShoppingCart = () => {
   // Sample cart items data
-  const [cartItems, setCartItems] = useState([
-    {
-        id: 1,
-        title: "Faded Jeans",
-        image: "src/assets/images/FadedJeans.svg",
-        size: "M",
-        color: "White",
-        price: 20,
-        discount: 20,
-        amount: 1
-      },
-      {
-        id: 2,
-        title: "Loose Shorts",
-        image: "src/assets/images/LooseShorts.svg",
-        size: "32",
-        color: "Blue",
-        price: 50,
-        discount: 20,
-        amount: 2
-      },
-      {
-        id: 3,
-        title: "T-shirt",
-        image: "src/assets/images/T-shirt.svg",
-        size: "10",
-        color: "Black",
-        price: 80,
-        discount: 0,
-        amount: 1
-      }
-  ]);
+  const {cart, addToCart, removeFromCart, updateQuantity} = useCart();
 
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
+  //console.log(cart);
 
   // Calculate subtotal
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.amount), 0);
+  const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   // Calculate total
-  const total = subtotal - discount;
+  const total = subtotal - discount + 15;
 
   // Handle amount changes
   const handleIncrease = (id) => {
-    setCartItems(cartItems.map(item => 
-      item.id === id ? { ...item, amount: item.amount + 1 } : item
-    ));
+    const oldAmount = cart.filter(item => item.id == id)[0].quantity;
+    console.log(typeof oldAmount);
+    updateQuantity(id, oldAmount + 1);
   };
 
   const handleDecrease = (id) => {
-    setCartItems(cartItems.map(item => 
-      item.id === id && item.amount > 1 ? { ...item, amount: item.amount - 1 } : item
-    ));
+    const oldAmount = cart.filter(item => item.id == id)[0].quantity;
+    console.log(oldAmount);
+    updateQuantity(id, oldAmount - 1);
   };
 
   const handleRemove = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
+    removeFromCart(id);
   };
 
   // Handle promo code application
@@ -77,7 +59,7 @@ const ShoppingCart = () => {
         <div className="border-1 flex-1 border-[#f0f0f0] rounded-3xl p-4">
             {/* Cart Items List */}
             <div className="space-y-2">
-            {cartItems.map((item, index) => (
+            {cart.map((item, index) => (
                 <div key={item.id}>
                 <CartItem 
                     item={item} 
@@ -87,7 +69,7 @@ const ShoppingCart = () => {
                 />
                 
                 {/* Horizontal line separator (except after last item) */}
-                {index < cartItems.length - 1 && (
+                {index < cart.length - 1 && (
                     <hr className="border-t border-[#f0f0f0] mt-2" />
                 )}
                 </div>
