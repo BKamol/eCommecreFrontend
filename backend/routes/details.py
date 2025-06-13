@@ -86,7 +86,7 @@ def get_full_products_info(session: SessionDep):
 )
 def add_product_details(
     product_id: int,
-    detail_data: ProductDetailCreate,  # You'll need to create this Pydantic model
+    detail_data: ProductDetailCreate,
     session: SessionDep
 ):
     # Check if product exists
@@ -101,7 +101,9 @@ def add_product_details(
     detail = ProductDetail(
         product_id=product_id,
         details=detail_data.details,
-        characteristics=detail_data.characteristics
+        characteristics=detail_data.characteristics,
+        kind=detail_data.kind,
+        style=detail_data.style
     )
     
     session.add(detail)

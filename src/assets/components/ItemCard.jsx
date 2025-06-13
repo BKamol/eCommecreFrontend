@@ -14,8 +14,8 @@ function ItemCard({item_id, image_url, item_name, rating, price, discount}) {
             <p className='opacity-60 text-sm'>{ rating }/5</p>
         </div>
         <div className='flex flex-row gap-2 items-center'>
-            <p className='font-bold text-xl'>${ price }</p>
-            {discount && <p className='font-bold text-xl opacity-40 line-through'>${ price + discount / 100 * price }</p>}
+            <p className='font-bold text-xl'>${ price.toFixed(2) }</p>
+            {discount && <p className='font-bold text-xl opacity-40 line-through'>${ (price + discount / 100 * price).toFixed(2) }</p>}
             {discount && <div className='w-[44px] h-[20px] bg-red-200 text-red-500 text-center rounded-[25px] text-[12px]'>-{ discount }%</div>}
         </div>
       </div>

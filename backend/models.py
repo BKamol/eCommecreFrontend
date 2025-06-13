@@ -25,6 +25,8 @@ class ProductDetail(SQLModel, table=True):
     product_id: int = Field(foreign_key="product.id")
     details: str  # Detailed description
     characteristics: str  # Technical specifications
+    kind: str # [T-shirts, Shorts, Shirts, Hoodie, Jeans]
+    style: str # [Casual, Formal, Party, Gym]
     
     product: Product = Relationship(back_populates="details")
 
@@ -107,6 +109,8 @@ class ProductView(SQLModel):
 class ProductDetailCreate(BaseModel):
     details: str
     characteristics: str
+    kind: str
+    style: str
 
 class FAQCreate(BaseModel):
     question: str

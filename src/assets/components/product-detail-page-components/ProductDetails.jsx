@@ -52,8 +52,8 @@ const ProductDetails = ({title, rating, price, discount, description, colors, si
         </div>
         
         <div className='flex flex-row gap-3 items-center'>
-            <p className='font-bold text-2xl'>${ price }</p>
-            {discount && <p className='font-bold text-2xl opacity-40 line-through'>${ price + discount / 100 * price }</p>}
+            <p className='font-bold text-2xl'>${ price.toFixed(2) }</p>
+            {discount && <p className='font-bold text-2xl opacity-40 line-through'>${ (price + discount / 100 * price).toFixed(2) }</p>}
             {discount && <div className='w-[44px] h-[20px] bg-red-200 text-red-500 text-center rounded-[25px] text-[12px]'>-{ discount }%</div>}
         </div>
         

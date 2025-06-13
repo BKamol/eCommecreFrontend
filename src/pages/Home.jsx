@@ -51,7 +51,7 @@ const Home = () => {
       <MainBlock />
       <NewArrivalsBlock items={(products || sampleItems).slice(0, 4)} />
       <HorizontalLine />
-      <TopSellingBlock items={(products || sampleItems).slice(0, 4)} />
+      <TopSellingBlock items={(products || sampleItems).slice(4, 8)} />
       <DressStyleBlock />
       <HappyCustomersBlock />
     </div>

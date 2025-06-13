@@ -3,7 +3,7 @@ import SettingsBlock from './SettingsBlock'
 import ItemsGrid from './ItemsGrid'
 import SettingsPopup from './SettingsPopup'
 import SettingsToLeft from './SettingsToLeft'
-import { fetchProducts } from './utilities';
+import { fetchProducts, clearCache } from './utilities';
 import { useSearchParams } from 'react-router-dom';
 
 

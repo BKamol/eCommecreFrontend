@@ -6,7 +6,7 @@ import HorizontalLine from '../HorizontalLine';
 const ItemsGrid = ({ items }) => {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9;
+  const itemsPerPage = 8;
 
   // Calculate pagination
   const totalPages = Math.ceil(items.length / itemsPerPage);
