@@ -7,6 +7,7 @@ import SizeSelector from '../category-page-components/SizeSelector';
 import { Minus, Plus } from 'lucide-react'
 import { useCart } from '../cart-page-components/CartContext'
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const ProductDetails = ({title, rating, price, discount, description, colors, sizes, image}) => {
     const [selectedColors, setSelectedColors] = useState([]);
@@ -24,7 +25,7 @@ const ProductDetails = ({title, rating, price, discount, description, colors, si
     }
 
     function addToCartUtil() {
-        let item = {
+        const item = {
             id: productId,
             title: title,
             rating: rating,
@@ -35,8 +36,9 @@ const ProductDetails = ({title, rating, price, discount, description, colors, si
             sizes: selectedSize,
             image: image,
             quantity: quantity
-        }
+        };
         addToCart(item, quantity);
+        toast.success(`${title} is added to cart!`);
         return item;
     }
     

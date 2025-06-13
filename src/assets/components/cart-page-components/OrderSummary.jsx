@@ -1,5 +1,6 @@
 import HorizontalLine from "../HorizontalLine";
 import { ArrowRight, Tag } from "lucide-react";
+import { toast } from 'react-hot-toast';
 
 const OrderSummary = ({ 
     subtotal, 
@@ -9,6 +10,11 @@ const OrderSummary = ({
     setPromoCode, 
     applyPromoCode 
   }) => {
+
+    function goToCheckout() {
+      toast.success("You can pay now!");
+    }
+
     return (
       <div className="flex flex-col gap-4 py-2">
         <p className="text-xl font-bold">Order Summary</p>
@@ -59,7 +65,8 @@ const OrderSummary = ({
         </div>
         
         {/* Checkout Button */}
-        <button className="flex flex-row items-center justify-center gap-3 py-3 w-full bg-black text-white rounded-[25px] focus:outline-none cursor-pointer mt-2">
+        <button onClick={goToCheckout}
+         className="flex flex-row items-center justify-center gap-3 py-3 w-full bg-black text-white rounded-[25px] focus:outline-none cursor-pointer mt-2">
           Go to Checkout <span><ArrowRight /></span>
         </button>
       </div>

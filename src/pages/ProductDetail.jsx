@@ -100,7 +100,6 @@ const ProductDetail = () => {
   if (products) {
     item = products.filter(product => product.id == productId)[0];
   }
-  console.log(item);
 
   return (
     <div>

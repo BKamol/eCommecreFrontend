@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CartItem from './CartItem';
 import OrderSummary from './OrderSummary';
 import { useCart } from './CartContext';
+import { toast } from 'react-hot-toast';
 
 // {
 //   id: 3,
@@ -29,28 +30,27 @@ const ShoppingCart = () => {
   const total = subtotal - discount + 15;
 
   // Handle amount changes
-  const handleIncrease = (id) => {
-    const oldAmount = cart.filter(item => item.id == id)[0].quantity;
-    console.log(typeof oldAmount);
-    updateQuantity(id, oldAmount + 1);
+  const handleIncrease = (id, color, size) => {
+    const oldAmount = cart.filter(item => item.id === id && item.colors[0] === color && item.sizes === size)[0].quantity;
+    updateQuantity(id, oldAmount + 1, color, size);
   };
 
-  const handleDecrease = (id) => {
-    const oldAmount = cart.filter(item => item.id == id)[0].quantity;
-    console.log(oldAmount);
-    updateQuantity(id, oldAmount - 1);
+  const handleDecrease = (id, color, size) => {
+    const oldAmount = cart.filter(item => item.id === id && item.colors[0] === color && item.sizes === size)[0].quantity;
+    updateQuantity(id, oldAmount - 1, color, size);
   };
 
-  const handleRemove = (id) => {
-    removeFromCart(id);
+  const handleRemove = (id, color, size) => {
+    removeFromCart(id, color, size);
   };
 
   // Handle promo code application
   const applyPromoCode = () => {
     if (promoCode === "DISCOUNT10") {
       setDiscount(subtotal * 0.1); // 10% discount
+      toast.success("Promocode applied!");
     } else {
-      alert("Invalid promo code");
+      toast.error("Invalid promocode!");
     }
   };
 
@@ -60,7 +60,7 @@ const ShoppingCart = () => {
             {/* Cart Items List */}
             <div className="space-y-2">
             {cart.map((item, index) => (
-                <div key={item.id}>
+                <div key={`${item.id}-${item.colors[0]}-${item.sizes}`}>
                 <CartItem 
                     item={item} 
                     onIncrease={handleIncrease} 

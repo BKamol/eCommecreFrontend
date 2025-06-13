@@ -11,9 +11,12 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from './pages/Register';
 import { CartProvider } from './assets/components/cart-page-components/CartContext';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
+    <>
+    <Toaster position="top-right" />
     <CartProvider>
       <BrowserRouter>
         <SignUpNow />
@@ -30,6 +33,7 @@ function App() {
         <Footer />
       </BrowserRouter>
     </CartProvider>
+    </>
   )
 }
 

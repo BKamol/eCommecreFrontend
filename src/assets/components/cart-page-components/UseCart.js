@@ -28,16 +28,29 @@ export const useCart = () => {
     });
   };
 
-  const removeFromCart = (productId) => {
-    setCart(prev => prev.filter(item => item.id !== productId));
+  const removeFromCart = (productId, productColor=null, productSize=null) => {
+    if (productColor && productSize)
+      setCart(prev => prev.filter(item => item.id !== productId || item.colors[0] !== productColor || item.sizes !== productSize));
+    else
+      setCart(prev => prev.filter(item => item.id !== productId))
   };
 
-  const updateQuantity = (productId, newQuantity) => {
-    setCart(prev =>
+  const updateQuantity = (productId, newQuantity, productColor=null, productSize=null) => {
+    if (productColor && productSize) {
+      setCart(prev =>
+      prev.map(item =>
+        item.id === productId && item.colors[0] === productColor && item.sizes === productSize ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    }
+    else {
+      setCart(prev =>
       prev.map(item =>
         item.id === productId ? { ...item, quantity: newQuantity } : item
-      )
-    );
+        )
+      );
+    }
+    
   };
 
   return { cart, addToCart, removeFromCart, updateQuantity };
