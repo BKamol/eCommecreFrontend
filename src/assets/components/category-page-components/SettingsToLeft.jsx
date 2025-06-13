@@ -6,6 +6,7 @@ import FiltersLinks from './FiltersLinks';
 import SizeSelector from './SizeSelector';
 import DressStyleLinks from './DressStyleLinks';
 import { SlidersVertical } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 function SettingsToLeft({
   selectedColors,
@@ -22,7 +23,9 @@ function SettingsToLeft({
         <div className="px-10 py-6">
             <div className='flex flex-row justify-between items-center mb-4'>
             <p className="text-2xl font-bold">Filters</p>
-            <SlidersVertical size={18} className='opacity-60' />
+            <Link to="/category">
+              <SlidersVertical size={18} className='opacity-60' />
+            </Link>
             </div>
             <HorizontalLine applyPadding={false} mb={4}/>
             <FiltersLinks />

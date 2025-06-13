@@ -84,7 +84,9 @@ function FilterableGrid() {
         item.price <= activeFilters.priceRange.max &&
         (activeFilters.colors.length === 0 || 
           item.colors.some(color => activeFilters.colors.includes(color.name))) &&
-        (!activeFilters.size || item.sizes.some(size => activeFilters.size === size.name))
+        (!activeFilters.size || item.sizes.some(size => activeFilters.size === size.name)) &&
+        (kind === 'All' || item.details[0].kind === kind) && (style === 'All' || item.details[0].style === style) &&
+        (searchQuery === 'All' || item.name.includes(searchQuery))
       );
     });
   } else {

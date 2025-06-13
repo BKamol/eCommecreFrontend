@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { SlidersVertical, ChevronDown } from 'lucide-react'
+import { Link } from 'react-router-dom';
 
 function SettingsBlock({ settingsHandler, style="All" }) {
 
@@ -16,7 +17,7 @@ function SettingsBlock({ settingsHandler, style="All" }) {
            
         </div>
         <button onClick={ settingsHandler } className="flex items-center justify-center bg-[#f0f0f0] rounded-full w-8 h-8 cursor-pointer md:hidden">
-        <SlidersVertical size={18} />
+          <SlidersVertical size={18} />
         </button>
     </div>
   )
