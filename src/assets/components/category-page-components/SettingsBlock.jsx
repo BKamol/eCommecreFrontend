@@ -2,11 +2,11 @@ import React from 'react'
 import { useState } from 'react';
 import { SlidersVertical, ChevronDown } from 'lucide-react'
 
-function SettingsBlock({ settingsHandler }) {
+function SettingsBlock({ settingsHandler, style="All" }) {
 
   return (
     <div className='flex flex-row g-2 py-4 justify-between items-center'>
-        <p className='text-3xl font-bold'>Casual</p>
+        <p className='text-3xl font-bold'>{ style }</p>
         <div className="flex flex-row gap-4 items-center">
           <p className='text-sm opacity-60'>Showing 1-10 of 100 Products</p>
           <div className='hidden lg:flex flex-row gap-1'>

@@ -18,19 +18,19 @@ function DressStyleLinks() {
             </div>
             { visible && 
                 <>
-                <Link to="/category" className='flex flex-row items-center justify-between opacity-60'>
+                <Link to="/category?style=Casual" className='flex flex-row items-center justify-between opacity-60'>
                     <p>Casual</p>
                     <ChevronRight />
                 </Link>
-                <Link to="/category" className='flex flex-row items-center justify-between opacity-60'>
+                <Link to="/category?style=Formal" className='flex flex-row items-center justify-between opacity-60'>
                     <p>Formal</p>
                     <ChevronRight />
                 </Link>
-                <Link to="/category" className='flex flex-row items-center justify-between opacity-60'>
+                <Link to="/category?style=Party" className='flex flex-row items-center justify-between opacity-60'>
                     <p>Party</p>
                     <ChevronRight />
                 </Link>
-                <Link to="/category" className='flex flex-row items-center justify-between opacity-60'>
+                <Link to="/category?style=Gym" className='flex flex-row items-center justify-between opacity-60'>
                     <p>Gym</p>
                     <ChevronRight />
                 </Link>

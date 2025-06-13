@@ -4,11 +4,16 @@ import ItemsGrid from './ItemsGrid'
 import SettingsPopup from './SettingsPopup'
 import SettingsToLeft from './SettingsToLeft'
 import { fetchProducts } from './utilities';
+import { useSearchParams } from 'react-router-dom';
 
 
 function FilterableGrid() {
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const style = searchParams.get('style') || 'All';
+  const kind = searchParams.get('kind') || 'All';
+  const searchQuery = searchParams.get('q') || 'All';
 
   useEffect(() => {
     const loadData = async () => {
@@ -23,7 +28,7 @@ function FilterableGrid() {
   const sampleItems = [
   {
     id: 1,
-    name: 'Data loading error',
+    name: 'Loading',
     rating: 4.5,
     price: 30,
     discount: 20,
@@ -70,7 +75,6 @@ function FilterableGrid() {
     setSettingsOpen(false);
   }
 
-  console.log("Products: ", products);
   let filteredItems = null;
 
   if (!(products == null)) {
@@ -84,7 +88,6 @@ function FilterableGrid() {
       );
     });
   } else {
-    console.log(")0)");
       filteredItems = sampleItems.filter(item => {
         return (
           item.price >= activeFilters.priceRange.min &&
@@ -108,7 +111,7 @@ function FilterableGrid() {
           onApplyFilters={applyFilters} 
           />
         <div className='flex flex-col flex-1'>
-          <SettingsBlock settingsHandler={handlePopup} />
+          <SettingsBlock settingsHandler={handlePopup} style={style} />
           <ItemsGrid items={ filteredItems } />
           <SettingsPopup
             isOpen={settingsOpen}
