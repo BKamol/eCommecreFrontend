@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { ChevronDown, SlidersVertical } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { ChevronDown, SlidersVertical, ChevronUp } from 'lucide-react';
 import ReviewCard from '../ReviewCard';
 import HorizontalLine from '../HorizontalLine';
 import ReviewModal from './ReviewModal';
@@ -12,6 +12,10 @@ const ReviewsSection = ({description, _reviews, faqs}) => {
     const [activeTab, setActiveTab] = useState('reviews');
     const [showAllReviews, setShowAllReviews] = useState(false);
 
+    const [sortMethod, setSortMethod] = useState('Latest');
+    const [isSortOpen, setIsSortOpen] = useState(false);
+    const sortRef = useRef(null);
+
     useEffect(() => {
       setReviews(_reviews);
     }, [_reviews, reviews]);
@@ -19,6 +23,28 @@ const ReviewsSection = ({description, _reviews, faqs}) => {
     const handleReviewSubmit = (newReview) => {
       setReviews([...reviews, newReview]);
     };
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+      if (sortRef.current && !sortRef.current.contains(event.target)) {
+      setIsSortOpen(false);
+      }
+      };
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    let sortedReviews = [...reviews];
+
+    if (sortMethod === "Latest") {
+      sortedReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sortMethod === "Oldest") {
+      sortedReviews.sort((a, b) => new Date(a.date) - new Date(b.date));
+    } else if (sortMethod === "Highest Rated") {
+      sortedReviews.sort((a, b) => b.rating - a.rating);
+    } else if (sortMethod === "Lowest Rated") {
+      sortedReviews.sort((a, b) => a.rating - b.rating);
+    }
     
     return (
       <div className="mt-10">
@@ -71,9 +97,39 @@ const ReviewsSection = ({description, _reviews, faqs}) => {
                         <div>
                             
                         </div>
-                        <button className="hidden lg:flex flex-row gap-1 items-center justify-center text-sm min-w-[100px] bg-[#f0f0f0] text-black font-semibold py-3 rounded-[25px] transition-colors cursor-pointer">
-                            Latest <span><ChevronDown size={18} /></span>
+                        <div ref={sortRef} className="relative hidden lg:flex">
+                        <button
+                          onClick={() => setIsSortOpen(!isSortOpen)}
+                          className="flex flex-row gap-1 items-center justify-center text-sm min-w-[150px] bg-[#f0f0f0] text-black font-semibold py-3 px-4 rounded-[25px] transition-colors cursor-pointer"
+                        >
+                          {sortMethod}
+                          {
+                            !isSortOpen && 
+                            <ChevronDown size={18} />
+                          }
+                          {
+                            isSortOpen && 
+                            <ChevronUp size={18} />
+                          }
                         </button>
+
+                        {isSortOpen && (
+                          <div className="absolute top-full right-0 mt-2 bg-white shadow-md rounded-[25px] px-1 py-2 w-48 z-50">
+                            {["Latest", "Oldest", "Highest Rated", "Lowest Rated"].map((method) => (
+                              <button
+                                key={method}
+                                onClick={() => {
+                                  setSortMethod(method);
+                                  setIsSortOpen(false);
+                                }}
+                                className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded-[25px]"
+                              >
+                                {method}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                        </div>
                         <button onClick={() => setShowReviewModal(true)}
                                 className="text-sm min-w-[120px] bg-black text-white py-3 rounded-[25px] transition-colors cursor-pointer">
                             Write a Review
@@ -88,7 +144,7 @@ const ReviewsSection = ({description, _reviews, faqs}) => {
 
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    {(showAllReviews ? reviews : reviews.slice(0, 4)).map(review => (
+                    {(showAllReviews ? sortedReviews : sortedReviews.slice(0, 4)).map(review => (
                     <ReviewCard key={review.id}
                                 author={review.author_username} 
                                 rating={review.rating} 

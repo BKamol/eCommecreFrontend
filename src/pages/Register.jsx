@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import HorizontalLine from '../assets/components/HorizontalLine'
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +32,8 @@ const Register = () => {
 
       const data = await response.json();
       setMessage("Registration successful!");
-      window.location.href = '/login'; // Redirect to login after registration
+      toast.success("Succesfully created account!")
+      navigate('/login'); // Redirect to login after registration
     } catch (error) {
       setMessage(error.message);
     }

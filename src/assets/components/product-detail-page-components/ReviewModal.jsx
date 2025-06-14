@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const ReviewModal = ({ onClose, onReviewSubmit }) => {
   const [user, setUser] = useState(null);
@@ -10,6 +12,7 @@ const ReviewModal = ({ onClose, onReviewSubmit }) => {
     rating: 0,
     comment: '',
   });
+  const navigate = useNavigate();
 
   const { productId } = useParams();
 
@@ -22,9 +25,10 @@ const ReviewModal = ({ onClose, onReviewSubmit }) => {
         setUser(response.data.username);
       } catch (error) {
         if (error.response?.status === 401) {
-          window.location.href = '/login';
+          navigate('/login');
         } else {
           console.error("Authentication error:", error);
+          toast.error("You have to be logged in!");
         }
       } finally {
         setLoading(false);
@@ -78,9 +82,11 @@ const ReviewModal = ({ onClose, onReviewSubmit }) => {
 
       // 3. Update UI
       onReviewSubmit(response.data);
+      toast.success("Submitted!");
       onClose();
     } catch (err) {
       setError(err.response?.data?.detail || 'Failed to submit review');
+      toast.error(err.response?.data?.detail || 'Failed to submit review');
     }
   };
 

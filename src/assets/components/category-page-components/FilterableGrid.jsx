@@ -14,6 +14,7 @@ function FilterableGrid() {
   const style = searchParams.get('style') || 'All';
   const kind = searchParams.get('kind') || 'All';
   const searchQuery = searchParams.get('q') || 'All';
+  
 
   useEffect(() => {
     const loadData = async () => {
@@ -59,6 +60,7 @@ function FilterableGrid() {
   const [selectedColors, setSelectedColors] = useState([]);
   const [selectedSize, setSelectedSize] = useState(null);
   const [priceRange, setPriceRange] = useState({min: 0, max: 900});
+  const [sortMethod, setSortMethod] = useState("Default");
 
   const [activeFilters, setActiveFilters] = useState({
     colors: [],
@@ -101,6 +103,17 @@ function FilterableGrid() {
       });
   }
 
+  const sortMethodsLambdas = {
+    "Default": () => {},
+    "Price: Low to High": (a, b) => a.price - b.price,
+    "Price: High to Low": (a, b) => b.price - a.price,
+    "Discount: Low to High": (a, b) => a.discount - b.discount,
+    "Discount: High to Low": (a, b) => b.discount - a.discount
+  };
+  if (sortMethod != "Default") {
+    filteredItems.sort(sortMethodsLambdas[sortMethod]);
+  }
+
   return (
     <div className='flex flex-row gap-20 px-10 lg:px-16 justify-between'>
         <SettingsToLeft
@@ -113,7 +126,12 @@ function FilterableGrid() {
           onApplyFilters={applyFilters} 
           />
         <div className='flex flex-col flex-1'>
-          <SettingsBlock settingsHandler={handlePopup} style={style} />
+          <SettingsBlock
+            settingsHandler={handlePopup}
+            style={style}
+            sortMethod={sortMethod}
+            onSortChange={setSortMethod}
+          />
           <ItemsGrid items={ filteredItems } />
           <SettingsPopup
             isOpen={settingsOpen}

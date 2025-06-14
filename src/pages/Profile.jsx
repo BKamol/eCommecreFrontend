@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import HorizontalLine from '../assets/components/HorizontalLine';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function Profile() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function checkAuth() {
@@ -15,7 +18,7 @@ function Profile() {
                 setUser(response.data.username);
             } catch (error) {
                 if (error.response?.status === 401) {
-                    window.location.href = '/login';
+                    navigate('/login');
                 } else {
                     console.error("Authentication error:", error);
                 }
@@ -33,7 +36,8 @@ function Profile() {
                 withCredentials: true // Important for cookie-based auth
             });
             setUser(null);
-            window.location.href = '/login';
+            toast.success("Logged out!");
+            navigate('/login');
         } catch (error) {
             console.error("Logout failed:", error);
         }
