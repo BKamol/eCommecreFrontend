@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Search } from 'lucide-react';
 
-function NavbarSearch() {
-  const [searchQuery, setSearchQuery] = useState('');
+function NavbarSearch({ searchQuery, setSearchQuery }) {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -17,7 +16,7 @@ function NavbarSearch() {
   };
 
   return (
-    <div className="hidden lg:flex items-center gap-2 bg-[#f0f0f0] w-80 xl:w-100 rounded-[25px] py-2 px-4 opacity-60">
+    <div className={"hidden lg:flex items-center gap-2 bg-[#f0f0f0] w-80 xl:w-100 rounded-[25px] py-2 px-4 opacity-60"}>
       <Search color="#000000" size={20} />
       <form onSubmit={handleSubmit} className="w-full">
         <input
