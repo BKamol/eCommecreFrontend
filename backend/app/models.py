@@ -124,3 +124,16 @@ class ReviewCreate(BaseModel):
     @validator('rating')
     def round_rating(cls, v):
         return round(v, 1)
+    
+
+class ProductFullCreate(BaseModel):
+    name: str
+    price: float
+    discount: float = 0.0
+    rating: float = 0.0
+    colors: List[ColorCreate] = []
+    sizes: List[SizeCreate] = []
+    images: List[ImageCreate] = []
+    details: List[ProductDetailCreate] = []
+    faqs: List[FAQCreate] = []
+    reviews: List[ReviewCreate] = []

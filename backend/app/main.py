@@ -1,11 +1,13 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from .models import (ProductView, Product, ProductCreate,
-                     Color, Size, Image)
+                     Color, Size, Image, ProductFullCreate, ProductDetail, FAQ, Review)
 from .database import create_db_and_tables, SessionDep
 from sqlmodel import select, join
 from sqlalchemy.orm import selectinload
 from .routes import auth, details
+from typing import List
+from datetime import datetime
 
 app = FastAPI()
 app.include_router(auth.router)
@@ -85,3 +87,31 @@ def create_product(
     session.commit()
     session.refresh(product)
     return product
+
+@app.post("/product/bulk", response_model=list[Product])
+def create_products_bulk(
+    *, session: SessionDep,
+    products_in: List[ProductFullCreate]
+):
+    created = []
+    for p_in in products_in:
+        prod = Product(
+            name=p_in.name, price=p_in.price, discount=p_in.discount, rating=p_in.rating
+        )
+
+        # Add relationship sub-objects
+        prod.colors  = [Color(name=c.name) for c in p_in.colors]
+        prod.sizes   = [Size(name=s.name) for s in p_in.sizes]
+        prod.images  = [Image(url=i.url) for i in p_in.images]
+        prod.details = [ProductDetail(**d.dict()) for d in p_in.details]
+        prod.faqs    = [FAQ(**f.dict()) for f in p_in.faqs]
+        prod.reviews = [Review(**r.dict()) for r in p_in.reviews]
+
+        session.add(prod)
+        created.append(prod)
+
+    session.commit()
+    for prod in created:
+        session.refresh(prod)
+
+    return created

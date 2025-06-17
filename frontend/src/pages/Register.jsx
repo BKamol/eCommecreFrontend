@@ -6,11 +6,24 @@ import { useNavigate } from 'react-router-dom';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPwd, setConfirmPwd] = useState('');
+  const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let validationErrors = {};
+
+    if (!username.trim()) validationErrors.username = 'Username is required';
+    if (password.length < 6) validationErrors.password = 'Minimum 6 characters';
+    if (confirmPwd !== password) validationErrors.confirmPwd = 'Passwords do not match';
+
+    if (Object.keys(validationErrors).length) {
+      setErrors(validationErrors);
+      return;
+    }
 
     try {
       const response = await fetch("http://localhost:8000/auth/register", {
@@ -79,6 +92,23 @@ const Register = () => {
             }}
           />
         </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <label>Confirm Password</label><br />
+          <input
+            type="password"
+            value={confirmPwd}
+            onChange={(e) => setConfirmPwd(e.target.value)}
+            required
+            style={{
+              width: '100%',
+              padding: '0.5rem 1rem',
+              backgroundColor: '#f0f0f0',
+              borderRadius: '25px',
+              border: '1px solid #ccc',
+              outline: 'none'
+            }}
+          />
+        </div>
         <div className="w-full flex flex-row items-center justify-center pt-4">
           <button className='min-w-[150px]'
           type="submit"
@@ -96,6 +126,12 @@ const Register = () => {
         </div>
       </form>
       {message && <p style={{ marginTop: '1rem' }}>{message}</p>}
+      {errors.password && (
+        <p className="text-red-500 mt-1 text-sm">{errors.password}</p>
+      )}
+      {errors.confirmPwd && (
+        <p className="text-red-500 mt-1 text-sm">{errors.confirmPwd}</p>
+      )}
     </div>
     </>
   );
