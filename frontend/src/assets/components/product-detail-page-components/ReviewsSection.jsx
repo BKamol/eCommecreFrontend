@@ -18,7 +18,7 @@ const ReviewsSection = ({description, _reviews, faqs}) => {
 
     useEffect(() => {
       setReviews(_reviews);
-    }, [_reviews, reviews]);
+    }, [_reviews]);
 
     const handleReviewSubmit = (newReview) => {
       setReviews([...reviews, newReview]);
@@ -136,6 +136,7 @@ const ReviewsSection = ({description, _reviews, faqs}) => {
                         </button>
                         {showReviewModal && (
                           <ReviewModal
+                            isOpen={showReviewModal}
                             onClose={() => setShowReviewModal(false)}
                             onReviewSubmit={handleReviewSubmit}
                           />

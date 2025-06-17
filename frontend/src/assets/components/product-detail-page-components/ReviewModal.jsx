@@ -3,8 +3,9 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { X } from 'lucide-react';
 
-const ReviewModal = ({ onClose, onReviewSubmit }) => {
+const ReviewModal = ({ isOpen, onClose, onReviewSubmit }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,6 +18,7 @@ const ReviewModal = ({ onClose, onReviewSubmit }) => {
   const { productId } = useParams();
 
   useEffect(() => {
+    if (!isOpen) return;
     async function checkAuth() {
       try {
         const response = await axios.get('http://localhost:8000/auth/users/me', {
@@ -35,7 +37,11 @@ const ReviewModal = ({ onClose, onReviewSubmit }) => {
       }
     }
     checkAuth();
-  }, []);
+
+    const onKey = e => e.key === 'Escape' && onClose();
+    document.addEventListener('keyup', onKey);
+    return () => document.removeEventListener('keyup', onKey);
+  }, [isOpen, navigate, onClose]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,10 +96,12 @@ const ReviewModal = ({ onClose, onReviewSubmit }) => {
     }
   };
 
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (!isOpen) return null;
+  if (loading) return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="bg-white p-6 rounded shadow">Loading...</div>
+    </div>
+  );
 
   if (error) {
     return (
@@ -106,43 +114,45 @@ const ReviewModal = ({ onClose, onReviewSubmit }) => {
     );
   }
 
-  console.log(review);
-
   return (
-    <div className="review-modal">
-      <div className="modal-content">
-        <button onClick={onClose} className="close-button">&times;</button>
-        <h2>Write a Review</h2>
-        <form onSubmit={handleSubmit}>
-          {/* <div className="form-group">
-            <label>Username:</label>
-            <input 
-              type="text" 
-              value={user.username} 
-              readOnly 
-              className="readonly-input"
-            />
-          </div> */}
-          <div className="form-group">
-            <label>Rating (0-5):</label>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-[25px] w-full max-w-md p-6 shadow-md relative"
+        onClick={e => e.stopPropagation()}
+      >
+        <button
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 cursor-pointer"
+          onClick={onClose}
+        ><X></X></button>
+        <h2 className="text-2xl font-semibold mb-4">Write a Review</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block font-medium mb-1">Rating (0–5)</label>
             <input
-              type="number"
-              min="0"
-              max="5"
-              value={review.rating}
-              onChange={(e) => setReview({...review, rating: parseInt(e.target.value)})}
+              type="number" min="0" max="5" value={review.rating}
+              onChange={e => setReview({ ...review, rating: +e.target.value })}
               required
+              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-gray-500 rounded-[25px]"
             />
           </div>
-          <div className="form-group">
-            <label>Comment:</label>
+          <div>
+            <label className="block font-medium mb-1">Comment</label>
             <textarea
               value={review.comment}
-              onChange={(e) => setReview({...review, comment: e.target.value})}
+              onChange={e => setReview({ ...review, comment: e.target.value })}
               required
+              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-gray-500 rounded-[25px]"
             />
           </div>
-          <button type="submit" className="submit-button">Submit Review</button>
+          <button
+            type="submit"
+            className="w-full bg-black text-white py-2 rounded-[25px] cursor-pointer"
+          >
+            Submit Review
+          </button>
         </form>
       </div>
     </div>

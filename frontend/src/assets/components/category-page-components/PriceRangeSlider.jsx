@@ -87,7 +87,7 @@ const PriceRangeSlider = ({ min = 0, max = 900, minValue, maxValue, onChange }) 
           style={{ left: `${minPercent}%`, transform: 'translate(-50%, -50%)' }}
           onMouseDown={() => handleMouseDown('min')}
         >
-            <span className="pt-15 text-lg">${minValue}</span>
+            <span className="pt-15 text-lg select-none">${minValue}</span>
         </div>
         
         {/* Max thumb */}
@@ -96,7 +96,7 @@ const PriceRangeSlider = ({ min = 0, max = 900, minValue, maxValue, onChange }) 
           style={{ left: `${maxPercent}%`, transform: 'translate(-50%, -50%)' }}
           onMouseDown={() => handleMouseDown('max')}
         >
-            <span className="pt-15 text-lg">${maxValue}</span>
+            <span className="pt-15 text-lg select-none">${maxValue}</span>
         </div>
       </div>
       <HorizontalLine applyPadding={false} mb={6} mt={10}/>

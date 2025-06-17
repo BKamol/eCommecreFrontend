@@ -55,7 +55,7 @@ const SizeSelector = ({ selectedSize, onSizeSelect, showTitle=true, available=nu
             />
             <label
               htmlFor={size}
-              className={`px-4 py-2 border rounded-[25px] cursor-pointer transition-all duration-200
+              className={`px-4 py-2 border rounded-[25px] select-none cursor-pointer transition-all duration-200
                 ${selectedSize === size
                   ? 'bg-black text-white border-black'
                   : 'bg-[#f0f0f0] text-gray-600 border-[#f0f0f0] hover:border-gray-500'}`}

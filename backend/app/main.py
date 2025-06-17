@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import models
+from .models import (ProductView, Product, ProductCreate,
+                     Color, Size, Image)
 from .database import create_db_and_tables, SessionDep
 from sqlmodel import select, join
 from sqlalchemy.orm import selectinload
@@ -20,35 +21,35 @@ def on_startup():
 from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "http://localhost"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
-@app.get("/product/", response_model=list[models.ProductView])
+@app.get("/product/", response_model=list[ProductView])
 def read_products(session: SessionDep):
     products = session.exec(
-        select(models.Product)
+        select(Product)
         .options(
-            selectinload(models.Product.colors),
-            selectinload(models.Product.sizes),
-            selectinload(models.Product.images)
+            selectinload(Product.colors),
+            selectinload(Product.sizes),
+            selectinload(Product.images)
         )
     ).all()
     return products
 
 
-@app.get("/product/{product_id}", response_model=models.Product)
+@app.get("/product/{product_id}", response_model=Product)
 def read_product(product_id: int, session: SessionDep):
     product = session.exec(
-        select(models.Product)
-        .where(models.Product.id == product_id)
+        select(Product)
+        .where(Product.id == product_id)
         .options(
-            selectinload(models.Product.colors),
-            selectinload(models.Product.sizes),
-            selectinload(models.Product.images)
+            selectinload(Product.colors),
+            selectinload(Product.sizes),
+            selectinload(Product.images)
         )
     ).first()
     
@@ -57,13 +58,13 @@ def read_product(product_id: int, session: SessionDep):
     return product
 
 
-@app.post("/product/", response_model=models.Product)
+@app.post("/product/", response_model=Product)
 def create_product(
-    product_data: models.ProductCreate,  # Use a dedicated "create" schema
+    product_data: ProductCreate,  # Use a dedicated "create" schema
     session: SessionDep
 ):
     # Create the product
-    product = models.Product(
+    product = Product(
         name=product_data.name,
         price=product_data.price,
         discount=product_data.discount,
@@ -72,13 +73,13 @@ def create_product(
     
     # Add relationships
     for color in product_data.colors:
-        product.colors.append(models.Color(**color.dict()))
+        product.colors.append(Color(**color.dict()))
     
     for size in product_data.sizes:
-        product.sizes.append(models.Size(**size.dict()))
+        product.sizes.append(Size(**size.dict()))
     
     for image in product_data.images:
-        product.images.append(models.Image(**image.dict()))
+        product.images.append(Image(**image.dict()))
     
     session.add(product)
     session.commit()
